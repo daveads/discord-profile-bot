@@ -4,15 +4,12 @@ import json
 from dotenv import load_dotenv
 from discord.ext import commands
 import asyncio
-import time
 
 load_dotenv()
 token = os.getenv('TOKEN')
-#f = open('./config.json')
-#data = json.load(f)
-
-
-
+f = open('./config.json')
+data = json.load(f)
+print(data.get('profile_channel'))
 
 intents = discord.Intents.default()
 intents.messages = True
