@@ -1,10 +1,6 @@
 import sqlite3
 from datetime import datetime
 
-datenow = datetime.now()
-
-datenow.strftime("%d/%m/%Y %H:%M")
-
 con = sqlite3.connect("profile.db")
 cur = con.cursor()
 
@@ -21,10 +17,11 @@ try:
             hobbies VARCHAR(100),
             biography VARCHAR(150),
             height VARCHAR(10),
-            Searching_for VARCHAR(30),
-            Sex VARCHAR(10),
+            looking_for VARCHAR(30),
+            dating_status VARCHAR(30),
+
             premium_day int,
-            Profile_date VARCHAR(12),
+            profile_date VARCHAR(12),
             premium int
             )''')
     #print("Table created")
@@ -41,15 +38,16 @@ for i in test:
 
 if len(test0) == 0:
   try:
-    cur.execute("INSERT INTO profile_detail VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", (1,
+
+    cur.execute("INSERT INTO profile_detail VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);", (
                                                                   "creator0000", 
                                                                   "daveads", 
-                                                                  "internet", 
-                                                                  "hobby is playing with computers",
-                                                                  "none",
-                                                                  "Tall",
+                                                                  "internet",
+                                                                  "love tinkering and playing with computers",
+                                                                  "nothing much yet",
+                                                                  "9'10",
                                                                   "a nice lady",
-                                                                  "male",
+                                                                  "single",
                                                                   1,
                                                                   "2022-10-03",
                                                                   0))
@@ -65,4 +63,39 @@ else:
 
 
 class profile_data():
-  pass
+
+  def __init__(self, username, name, location, hobbies, biography, height, looking_for, dating_status):
+
+    self.username = username
+    self.name = name
+    self.location = location 
+    #self.gender = gender #check
+    self.hobbies = hobbies
+    self.biography = biography
+    self.height = height
+    self.looking_for = looking_for
+    #self.sexcuality = Sexuality
+    self.dating_status = dating_status
+
+
+    #Defaults
+    self.premium = 0 #[0, 1] enum
+    self.premium_day = 0
+    self.profile_date = datetime.utcnow().strftime("%d-%m-%Y")
+
+    cur.execute("INSERT INTO confession VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", (
+      self.username,
+      self.name,
+      self.location,
+      self.hobbies,
+      self.biography,
+      self.height,
+      self.looking_for,
+      self.dating_status,
+
+      self.premium,
+      self.premium_day,
+      
+      self.profile_date
+    ))
+    con.commit()
