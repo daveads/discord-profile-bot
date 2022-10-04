@@ -21,7 +21,9 @@ class Profile(commands.Cog):
 
         "name" : "what's your name ?",
         "location": "where are you from ?",
-        "Status" : "Briefly say your dating status! ",
+        "Dating-Status" : "Briefly say your dating status! ",
+        "Gender" : "**Gender** : This can only be male, female or others",
+        "Sexuality" : "Sexuality ?",
         "height" : "How tall are you? ",
         "search_for":"What are you looking for? Type None if you don't want to share!",
         "hobbies" : "What are your hobbies?",

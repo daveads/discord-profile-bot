@@ -7,9 +7,12 @@ import asyncio
 
 load_dotenv()
 token = os.getenv('TOKEN')
+
+# Tests
 f = open('./config.json')
 data = json.load(f)
 print(data.get('profile_channel'))
+
 
 intents = discord.Intents.default()
 intents.messages = True
