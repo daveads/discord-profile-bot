@@ -4,6 +4,10 @@ import json
 from dotenv import load_dotenv
 from discord.ext import commands
 import asyncio
+from model import profile
+
+# intializing database
+profile.main()
 
 load_dotenv()
 token = os.getenv('TOKEN')
@@ -11,7 +15,7 @@ token = os.getenv('TOKEN')
 # Tests
 f = open('./config.json')
 data = json.load(f)
-print(data.get('profile_channel'))
+#print(data.get('profile_channel'))
 
 
 intents = discord.Intents.default()
