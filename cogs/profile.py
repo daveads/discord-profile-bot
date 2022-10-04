@@ -12,6 +12,7 @@ class Profile(commands.Cog):
     @commands.command()
     @commands.cooldown(1, 259200, commands.BucketType.user)
     async def profile(self, ctx):
+        
         await ctx.send("check dm")
         await ctx.channel.purge(limit=200)   
         print(f'user profile {ctx.author.id}')
@@ -30,7 +31,7 @@ class Profile(commands.Cog):
         user = await self.bot.fetch_user(ctx.author.id)
         print(user)
         profile_data = {}
-
+        
         for ques in questions:
             
             try:
@@ -62,7 +63,8 @@ class Profile(commands.Cog):
             print(profile_data)
             await user.send("Done!")
         else:
-            profile.reset_cooldown(ctx)
+            ctx.command.reset_cooldown(ctx)
+            
             
 
     

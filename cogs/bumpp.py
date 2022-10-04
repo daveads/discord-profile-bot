@@ -1,7 +1,7 @@
 from discord.ext import commands
 import discord
 
-class bumpp(commands.Cog):
+class Bumpp(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
@@ -18,7 +18,7 @@ class bumpp(commands.Cog):
             await ctx.send("you are a premium user, **bump**")
         else:
             await ctx.send("you are not verified")
-            bumpp.reset_cooldown(ctx)
+            ctx.command.reset_cooldown(ctx)
 
     @bumpp.error
     async def bumpp_error(self, ctx, error):
@@ -35,4 +35,4 @@ class bumpp(commands.Cog):
 
 
 async def setup(bot):
-    await bot.add_cog(bumpp(bot))
+    await bot.add_cog(Bumpp(bot))
