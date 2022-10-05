@@ -1,6 +1,7 @@
 from discord.ext import commands
 import asyncio
 import sqlite3
+from model import profile
 
 class Profile(commands.Cog):
     
@@ -19,9 +20,9 @@ class Profile(commands.Cog):
 
         "name" : "what's your name ?",
         "location": "where are you from ?",
-        "Dating-Status" : "Briefly say your dating status! ",
         "height" : "How tall are you? ",
-        "search_for":"What are you looking for? Type None if you don't want to share!",
+        "dating_status" : "Briefly say your dating status! ",
+        "looking_for":"What are you looking for? Type None if you don't want to share!",
         "hobbies" : "What are your hobbies?",
         "biography" : "Please write a biography, under 200 characters!"
         }
@@ -74,11 +75,23 @@ class Profile(commands.Cog):
                     break
 
 
-            if self.profile_data:
+            if len(self.profile_data.keys()) == 7:
                 print(self.profile_data)
-                await user.send("Done!")
+                profile.profile_data(str(ctx.author),
+                                     str(ctx.author.id),
+                                     self.profile_data['name'],
+                                     self.profile_data['location'],
+                                     self.profile_data['height'],
+                                     self.profile_data['dating_status'],
+                                     self.profile_data['looking_for'],
+                                     self.profile_data['hobbies'],
+                                     self.profile_data['biography'],
+                )
 
-    
+                await user.send("Profile created !")
+
+            else:
+                pass
 
     @profile.error
     async def profile_command_error(self, ctx, error):
