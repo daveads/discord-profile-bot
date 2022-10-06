@@ -6,6 +6,7 @@ class ready(commands.Cog):
         self.bot = bot
 
     
+    """
     @commands.Cog.listener()
     async def on_message(self, message):
         if message.author.id == self.bot.user.id:
@@ -14,7 +15,7 @@ class ready(commands.Cog):
         
         if message.content.lower() == "help":
             return await message.author.send("help on the way")
-    
+    """
 
     @commands.Cog.listener()
     async def on_ready(self):

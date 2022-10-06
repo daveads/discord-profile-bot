@@ -116,3 +116,7 @@ class profile_data():
     except sqlite3.Error as error:
       print(f"unable to create add {self.username} into the database >> ", error)
 
+
+"""
+**removing premium** !needed
+"""

@@ -1,8 +1,8 @@
 from discord.ext import commands
-from core import json_data
+from core import configs
 
 
-data = json_data.Datajson()
+data = configs.Datajson()
 
 class Owner(commands.Cog):
 
