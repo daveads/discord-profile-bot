@@ -2,7 +2,6 @@ import json
 f = open('./config.json')
 data = json.load(f)
 
-
 class Datajson():
 
     def __init__(self):
@@ -12,3 +11,4 @@ class Datajson():
         self.male_channel = data.get('male_channel')
         self.female_channel = data.get('female_channel')
         self.others_channel = data.get('others_channel')
+        self.owner = data.get('owner')
