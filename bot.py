@@ -1,6 +1,5 @@
 import discord
 import os
-import json
 from dotenv import load_dotenv
 from discord.ext import commands
 import asyncio
@@ -12,12 +11,6 @@ profile.main()
 load_dotenv()
 token = os.getenv('TOKEN')
 
-# Tests
-f = open('./config.json')
-data = json.load(f)
-#print(data.get('profile_channel'))
-
-
 intents = discord.Intents.default()
 intents.messages = True
 intents.members = True
@@ -25,7 +18,6 @@ intents.message_content = True
 
 
 description = '''Testing stuffs'''
-owners = [840152379122384896]
 bot = commands.Bot(command_prefix='!', intents=intents, description=description)
 
 async def load():

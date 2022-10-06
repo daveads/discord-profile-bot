@@ -1,7 +1,11 @@
 from discord.ext import commands
 import asyncio
-import sqlite3
 from model import profile
+
+from model import queries
+
+# class initialized
+user_in_db = queries.PROFILEque()
 
 class Profile(commands.Cog):
     
@@ -30,21 +34,7 @@ class Profile(commands.Cog):
         user = await self.bot.fetch_user(ctx.author.id)
         print(user, "username!!!!!!!!!!!!", ctx.author)
 
-        
-        #db query
-        try:
-            con = sqlite3.connect("profile.db")
-            cur = con.cursor()
-            cur.execute(f"SELECT * FROM profile_detail WHERE username_id='{ctx.author.id}'")
-            user_in_db= cur.fetchone();
-
-        except sqlite3.Error as error:
-            print("error error >>", error)
-        
-
-
-
-        if user_in_db:
+        if user_in_db.get_user(ctx.author.id):
             await user.send("you have a profile created already")
 
         else:

@@ -1,17 +1,59 @@
 import discord
 from discord.ext import commands
 
+#json data
+from core import configs
+from model import queries
+
+
+# class initialized
+data = configs.Datajson()
+user_in_db = queries.PROFILEque()
+
 class bump(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
 
+
     @commands.command()
     @commands.cooldown(1, 259200, commands.BucketType.user) #next 3days 
     async def bump(self, ctx):
-        await ctx.send("Bump done")
+        
+        if ctx.channel.id == data.profile_channel:
 
-    
+
+            # Check premium Users         
+            role = discord.utils.get(ctx.guild.roles, id=data.premium_role)
+            if role in ctx.author.roles:
+                
+                await ctx.send("premium user should use the !bumpp commands")
+                ctx.command.reset_cooldown(ctx)
+                
+            else:
+
+                if user_in_db.get_user(ctx.author.id): #user_in:
+                   
+                    await ctx.send("you have a profile")
+                    await ctx.send("Bump done")
+                    """
+                    bump data
+                    """
+
+
+                else:
+                    await ctx.send("you don't have a profile")
+                    ctx.command.reset_cooldown(ctx)
+
+
+        else:
+            await ctx.send("command can't be used in this channel visit the profile_command channel")
+            ctx.command.reset_cooldown(ctx)
+
+        
+
+
+
     @bump.error
     async def bump_command_error(self, ctx, error):
         if isinstance(error, commands.CommandOnCooldown):

@@ -16,6 +16,9 @@ class Bumpp(commands.Cog):
         role = discord.utils.get(ctx.guild.roles, id=1026477250968834159)
         if role in ctx.author.roles:
             await ctx.send("you are a premium user, **bump**")
+
+
+            
         else:
             await ctx.send("you are not verified")
             ctx.command.reset_cooldown(ctx)
