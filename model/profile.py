@@ -23,7 +23,6 @@ def main():
             hobbies VARCHAR(100),
             biography VARCHAR(150),
             
-            premium int,
             premium_day int,
             profile_date VARCHAR(12)
             )''')
@@ -43,7 +42,7 @@ def main():
   if len(test0) == 0:
     try:
 
-      cur.execute("INSERT INTO profile_detail VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);", (
+      cur.execute("INSERT INTO profile_detail VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);", (
                                                                   "creator0000",
                                                                   "00000000022331",
                                                                   "daveads", 
@@ -54,7 +53,6 @@ def main():
                                                                   "love tinkering and playing with computers",
                                                                   "nothing much yet",
                                                                    
-                                                                   0,
                                                                    0,
                                                                   "2022-10-03"))
       print("default values inputed")
@@ -89,12 +87,11 @@ class profile_data():
 
 
     #Defaults
-    self.premium = 0 #[0, 1] enum
     self.premium_day = 0
     self.profile_date = datetime.utcnow().strftime("%d-%m-%Y")
 
     try: 
-      cur.execute("INSERT INTO profile_detail VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", (
+      cur.execute("INSERT INTO profile_detail VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", (
       self.username,
       self.username_id,
       self.name,
@@ -105,9 +102,7 @@ class profile_data():
       self.hobbies,
       self.biography,
 
-      self.premium,
       self.premium_day,
-
       self.profile_date
     ))
       con.commit()
