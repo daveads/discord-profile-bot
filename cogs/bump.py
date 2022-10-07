@@ -15,7 +15,7 @@ class bump(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-
+    @commands.guild_only()
     @commands.command()
     @commands.cooldown(1, 259200, commands.BucketType.user) #next 3days 
     async def bump(self, ctx):
@@ -33,11 +33,21 @@ class bump(commands.Cog):
             else:
 
                 if user_in_db.get_user(ctx.author.id): #user_in:
-                   
-                    await ctx.send("you have a profile")
-                    await ctx.send("Bump done")
+                    channel = self.bot.get_channel(data.male_channel)
+                    await channel.send(f"Bump done {ctx.author.mention}")
+                    
                     """
                     bump data
+
+                    // discord data
+                    * About me == biography
+                    * Gender
+                    * DMs status
+                    * Verification level
+                    * Orientation = sexual orientation
+                    * Age
+
+
                     """
 
 
@@ -47,7 +57,7 @@ class bump(commands.Cog):
 
 
         else:
-            await ctx.send("command can't be used in this channel visit the profile_command channel")
+            await ctx.send("command can only be used in the profile_command channel")
             ctx.command.reset_cooldown(ctx)
 
         

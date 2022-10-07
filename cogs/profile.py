@@ -12,7 +12,9 @@ class Profile(commands.Cog):
     def __init__(self, bot):
         self.bot = bot 
         self.profile_data = {}
-    
+
+
+    @commands.guild_only()
     @commands.command()
     async def profile(self, ctx):
         
@@ -79,13 +81,18 @@ class Profile(commands.Cog):
                 )
 
                 await user.send("Profile created !")
+                
 
             else:
                 pass
 
     @profile.error
     async def profile_command_error(self, ctx, error):
-        print("")
+
+        #comment out
+        if isinstance(error, commands.CommandInvokeError):
+            user = await self.bot.fetch_user(ctx.author.id)
+            await user.send("can't execute action on DM")
 
                 
 

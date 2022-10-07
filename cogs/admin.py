@@ -5,8 +5,9 @@ class Admin(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
-    
-    
+        
+    #@has_permissions(administrator=True)
+    #@commands.has_permissions(kick_members=True)
     @commands.command()
     @commands.has_role("admin")
     async def admin(self, ctx):
