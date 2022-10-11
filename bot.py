@@ -31,7 +31,7 @@ async def shutdown(ctx):
 
 @bot.command()
 async def emb(ctx):
-    embed=discord.Embed(title="Sample Embed", url="https://realdrewdata.medium.com/", description="This is an embed that will show how to build an embed and the different components", color=0xFF5733)
+    embed=discord.Embed(title="Sample Embed", description="This is an embed that will show how to build an embed and the different components", color=0xFF5733)
     await ctx.send(embed=embed)
 
 bot.remove_command('help')  
