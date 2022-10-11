@@ -1,11 +1,13 @@
 from discord.ext import commands
 import asyncio
-from model import profile
 
+from model import profile
 from model import queries
+from core import embed
 
 # class initialized
 user_in_db = queries.PROFILEque()
+user_embed = embed.Embed()
 
 class Profile(commands.Cog):
     
@@ -16,11 +18,14 @@ class Profile(commands.Cog):
 
     @commands.guild_only()
     @commands.command()
-    async def profile(self, ctx):
+    async def create(self, ctx):
         
         await ctx.send("check dm")
         await ctx.channel.purge(limit=2)   
         print(f'user profile id {ctx.author.id}')
+        
+        def check(msg):
+            return msg.author == ctx.author
 
         questions = {
 
@@ -37,7 +42,7 @@ class Profile(commands.Cog):
         print(user, "username!!!!!!!!!!!!", ctx.author)
 
         if user_in_db.get_user(ctx.author.id):
-            await user.send("you have a profile created already")
+            await user_embed.user_reply(user,"you have a profile created already")
 
         else:
 
@@ -48,7 +53,7 @@ class Profile(commands.Cog):
                     await user.send(questions[ques])
                     await asyncio.sleep(2)
 
-                    msg = await self.bot.wait_for("message", timeout=65.0)
+                    msg = await self.bot.wait_for("message", check=check,timeout=65.0)
 
                     if msg.content:
                         self.profile_data[ques] = msg.content
@@ -56,19 +61,17 @@ class Profile(commands.Cog):
                         continue
                 
                     else:
-                        await user.send("Technical issues ")
-                        await user.send("Contact the Admin or Engineer")
+                    
+                        await user_embed.user_reply(user,"Technical issues \n Contact the Admin or Engineer")
                         break 
        
 
-                except asyncio.TimeoutError: #test
-                    await user.send("Time out")
-                    await user.send("You were too slow to answer!")
+                except asyncio.TimeoutError:
+                    await user_embed.user_reply(user,"Time out \n you were too slow to answer!")
                     break
 
 
             if len(self.profile_data.keys()) == 7:
-                print(self.profile_data)
                 profile.profile_data(str(ctx.author),
                                      str(ctx.author.id),
                                      self.profile_data['name'],
@@ -80,20 +83,21 @@ class Profile(commands.Cog):
                                      self.profile_data['biography'],
                 )
 
-                await user.send("Profile created !")
-                
+                await user_embed.user_reply(user, "Profile created!")
+
 
             else:
                 pass
 
-    @profile.error
+    @create.error
     async def profile_command_error(self, ctx, error):
-
+        ""
         #comment out
+        """
         if isinstance(error, commands.CommandInvokeError):
             user = await self.bot.fetch_user(ctx.author.id)
             await user.send("can't execute action on DM")
-
+        """
                 
 
     
