@@ -23,9 +23,11 @@ class Profile(commands.Cog):
         await ctx.send("check dm")
         await ctx.channel.purge(limit=2)   
         print(f'user profile id {ctx.author.id}')
+
+        user = await self.bot.fetch_user(ctx.author.id)
         
         def check(msg):
-            return msg.author == ctx.author
+            return msg.author == user
 
         questions = {
 
@@ -38,8 +40,8 @@ class Profile(commands.Cog):
         "biography" : "Please write a biography, under 200 characters!"
         }
 
-        user = await self.bot.fetch_user(ctx.author.id)
-        print(user, "username!!!!!!!!!!!!", ctx.author)
+        
+        #print(user, "username!!!!!!!!!!!!", ctx.author)
 
         if user_in_db.get_user(ctx.author.id):
             await user_embed.user_reply(user,"you have a profile created already")
