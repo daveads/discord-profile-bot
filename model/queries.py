@@ -26,4 +26,4 @@ class PROFILEque():
             self.cur.execute(f"UPDATE profile_detail SET {table} ='{value}' WHERE username_id='{username_id}'")
 
         except sqlite3.Error as error:
-            print("unable to update user >>", error)
+            print(f"unable to update user {table} >>", error)
