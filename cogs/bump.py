@@ -19,48 +19,69 @@ class bump(commands.Cog):
     @commands.command()
     @commands.cooldown(1, 259200, commands.BucketType.user) #next 3days 
     async def bump(self, ctx):
-        
+        await ctx.channel.purge(limit=1)
         if ctx.channel.id == data.profile_channel:
-
+    
+            user = await self.bot.fetch_user(ctx.author.id)
+            print("user roles ",user)
 
             # Check premium Users         
             role = discord.utils.get(ctx.guild.roles, id=data.premium_role)
             if role in ctx.author.roles:
                 
-                await ctx.send("premium user should use the !bumpp commands")
+                await user.send("premium user should use the !bumpp commands")
                 ctx.command.reset_cooldown(ctx)
                 
             else:
+                print(ctx.author.id)
+                print("json", data.male_role)
+                print("json", data.female_role)
 
                 if user_in_db.get_user(ctx.author.id): #user_in:
-
+                    
                     dic_key = ['id','username','username_id','name','location','height','dating_status','looking_for','hobbies','biography','premium_day','profile_date']
                     user_d = user_in_db.get_user(ctx.author.id)
                     user_data ={}
                     for i in range(len(dic_key)):
-                        user_data[dic_key[i]] = user_d[i]       
+                        user_data[dic_key[i]] = user_d[i] 
 
+                    print(user_data)
 
-                    channel = self.bot.get_channel(data.male_channel)
+                    male = discord.utils.get(ctx.guild.roles, id=data.male_role)
+                    female = discord.utils.get(ctx.guild.roles, id=data.female_role)
 
+                    if male in ctx.author.roles:
+                        channel = self.bot.get_channel(data.male_channel)
+                        print("male")
+                        print(ctx.author.roles)
+                    elif female in ctx.author.roles:
+                        channel = self.bot.get_channel(data.female_channel)
+                    else:
+                        user.send("you need a role to bump")
 
                     """
                     Embed 
                     """
                     await channel.send(f"{ctx.author.mention}")
-                    embed=discord.Embed(title=f"User: <@{ctx.author.id}>", url="", description="", color=discord.Color.red())
+                    embed=discord.Embed(title=f"User: <@{user.id}>", url="", description="", color=discord.Color.red())
                     #if True:
                     #=embed.set_image(url=(ctx.author.avatar))
                    
-                    embed.set_thumbnail(url=ctx.author.avatar)
-                    embed.set_author(name=f"{ctx.author}", icon_url=(ctx.author.avatar))
+                    embed.set_thumbnail(url=user.avatar)
+                    embed.set_author(name=f"{user}", icon_url=(user.avatar))
                     embed.add_field(name="Name", value=f"{user_data['name']}", inline=True)
                     
+                    
                     embed.add_field(name="Age", value=f"24", inline=True)
-                    embed.add_field(name="Gender", value=f"Gender", inline=True)
+
+                    if male in ctx.author.roles:
+                        embed.add_field(name="Gender", value=f"{male}", inline=True)
+                    
+                    elif female in ctx.author.roles:
+                        embed.add_field(name="Gender", value=f"{female}", inline=True)
+
 
                     embed.add_field(name="Orientation", value=f"Straight", inline=True)
-                    
                     embed.add_field(name="Location", value=f"{user_data['location']}", inline=True)
                     embed.add_field(name="Dating status", value=f"{user_data['dating_status']}", inline=True)
                     embed.add_field(name="Height", value=f"{user_data['height']}", inline=True)

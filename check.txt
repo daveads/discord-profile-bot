@@ -1,0 +1,3 @@
+* https://github.com/amontalenti/elements-of-python-style#the-elements-of-python-style
+* https://flake8.pycqa.org/en/latest/
+

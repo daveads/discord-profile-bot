@@ -61,7 +61,8 @@ class Viewprofile(commands.Cog):
                             return msg.author == user
                       
                         msg = await self.bot.wait_for("message", check=check, timeout=msg_timer)       
-                        
+                        #print(msg.author)
+                        #print(user)
                           
                         #name
                         if msg.content == '1':

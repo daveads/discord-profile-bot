@@ -10,7 +10,7 @@ class Owner(commands.Cog):
         self.bot = bot
 
     def check_if_it_is_me(ctx):   
-        owner_bool = ctx.message.author.id in data.owner
+        owner_bool = ctx.message.author.id in data.owner #ctx.author.id
         return owner_bool
 
     @commands.command()

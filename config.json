@@ -1,13 +1,14 @@
 {
     "profile_channel": 1016472978403368980,
-    "profile_commands_admin": 1016472978403368980,
-    "male_channel": 990619189058355281,
-    "female_channel": 885436595497500724,
+    "profile_commands_admin": 990619189058355281,
+    "male_channel": 1016472843921408121,
+    "female_channel": 1016472911344836729,
     "others_channel": 885436595497500724,
     "owners_id" : [ 840152379122384896, 885436593639419923],
 
 
     "premium_role_id" : 1026476154225446962,
-
+    "male" :            1026774219947786271,
+    "female" :          1026774365259448350,
     "check" : ""
 }

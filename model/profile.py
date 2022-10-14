@@ -23,7 +23,8 @@ def main():
             hobbies VARCHAR(100),
             biography VARCHAR(150),
             
-            premium_day int,
+            premium_days int,
+            premium_exp_date VARCHAR(10),
             profile_date VARCHAR(12)
             )''')
       #print("Table created")
@@ -42,7 +43,7 @@ def main():
   if len(test0) == 0:
     try:
 
-      cur.execute("INSERT INTO profile_detail VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);", (
+      cur.execute("INSERT INTO profile_detail VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);", (
                                                                   "creator0000",
                                                                   "00000000022331",
                                                                   "daveads", 
@@ -54,6 +55,7 @@ def main():
                                                                   "nothing much yet",
                                                                    
                                                                    0,
+                                                                  "2022-10-03",
                                                                   "2022-10-03"))
       print("default values inputed")
       con.commit()
@@ -87,7 +89,8 @@ class profile_data():
 
 
     #Defaults
-    self.premium_day = 0
+    self.premium_days = 0
+    self.premium_exp_date = '0'
     self.profile_date = datetime.utcnow().strftime("%d-%m-%Y")
 
     try: 
@@ -102,7 +105,8 @@ class profile_data():
       self.hobbies,
       self.biography,
 
-      self.premium_day,
+      self.premium_days,
+      self.premium_exp_date,
       self.profile_date
     ))
       con.commit()

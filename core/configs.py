@@ -25,6 +25,9 @@ class Datajson():
 
         #roles
         self.premium_role = data.get('premium_role_id')
+        self.male_role = data.get('male')
+        self.female_role = data.get('female')
+
 
 
 for i in data:
