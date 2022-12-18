@@ -141,27 +141,5 @@ class Viewprofile(commands.Cog):
             await user.send("command can only be used in the profile_command channel")
 
 
-
-
-
-
-    @commands.Cog.listener()
-    async def on_message(self, message):
-
-        #bot only
-        if message.author == self.bot.user:
-
-            if message.content.startswith('!run'):
-                channel = self.bot.get_channel(data.profile_channel)
-                await channel.purge(limit=2000)
-
-                await channel.send(file=discord.File('profile.jpg'))
-                msg = await channel.send(
-                                """**Create your own profile to describe yourself and start meeting others!** \n\n  📝 ➤ Edit Profile \n  `Update your information` \n\n 🔎 ➤ Preview Profile \n  `Preview your current profile!` \n\n **To Bump the server user the `!bump` command** \n  `cooldown: (Nomal 3d)` 
-                                \n **For premium user should use the `!bumpp` command** \n *The `!bumpp command cost $3 monthly` message moderators to get more details on that* \n  `cooldown: (Normal: 12hrs)` 
-                                \n Type `!create` to create a profile \n Type `!edit` to edit profile
-                                """, view=Profile(self.bot))
-
-
 async def setup(bot):
     await bot.add_cog(Viewprofile(bot))

@@ -24,13 +24,13 @@ class ready(commands.Cog):
         if message.content.lower() == "help":
             return '' #await message.author.send("help on the way")
     
-
+    """
     @commands.Cog.listener()
     async def on_ready(self):
         channel = self.bot.get_channel(data.profile_channel)
         print(f'{self.bot.user}:Bot Logged In')
         await channel.send("!run")
-
+    """
     
 
     @commands.Cog.listener()
