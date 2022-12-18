@@ -1,7 +1,6 @@
 from discord.ext import commands
 import discord
-
-
+from view.profile_btn import Profile
 
 #bot_configs = BotConfigs()
 
@@ -15,7 +14,7 @@ class ProfileBot(commands.Bot):
 
     async def setup_hook(self) -> None:
         #self.add_view(StartVerify(self))
-        pass
+        self.add_view(Profile(self))
 
     async def on_ready(self):
         print(f'Logged in as {self.user} (ID: {self.user.id})')
