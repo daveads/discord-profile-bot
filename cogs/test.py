@@ -85,6 +85,3 @@ class Test(commands.Cog):
 
 async def setup(bot):
     await bot.add_cog(Test(bot))
-
-#festival trade demand acid seminar point push glide jewel elder keep vapor
-#Thiswhy=!pwd2149

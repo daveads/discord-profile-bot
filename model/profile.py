@@ -17,8 +17,6 @@ def main():
             username_id VARCHAR(25),
             name VARCHAR(20),
             location VARCHAR(15),
-            height VARCHAR(10),
-            dating_status VARCHAR(30),
             looking_for VARCHAR(30),
             hobbies VARCHAR(100),
             biography VARCHAR(150),
@@ -43,13 +41,11 @@ def main():
   if len(test0) == 0:
     try:
 
-      cur.execute("INSERT INTO profile_detail VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);", (
+      cur.execute("INSERT INTO profile_detail VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);", (
                                                                   "creator0000",
                                                                   "00000000022331",
                                                                   "daveads", 
                                                                   "internet",
-                                                                  "9'10",
-                                                                  "single",
                                                                   "a nice lady",
                                                                   "love tinkering and playing with computers",
                                                                   "nothing much yet",
@@ -72,19 +68,19 @@ if __name__ == '__main__':
 
 class profile_data():
 
-  def __init__(self, username, username_id, name, location, height, dating_status, looking_for, hobbies, biography ):
+  def __init__(self, username, username_id, name, location, looking_for, hobbies, biography ):
 
     self.username = username
     self.username_id = username_id
     self.name = name
     self.location = location 
     #self.gender = gender #check
-    self.height = height
-    self.dating_status = dating_status
     self.looking_for = looking_for
     self.hobbies = hobbies
     self.biography = biography
     #self.sexuality = Sexuality
+    #height
+    #relationship status
     
 
 
@@ -94,13 +90,11 @@ class profile_data():
     self.profile_date = datetime.utcnow().strftime("%d-%m-%Y")
 
     try: 
-      cur.execute("INSERT INTO profile_detail VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", (
+      cur.execute("INSERT INTO profile_detail VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", (
       self.username,
       self.username_id,
       self.name,
       self.location,
-      self.height,
-      self.dating_status,
       self.looking_for,
       self.hobbies,
       self.biography,

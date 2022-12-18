@@ -39,7 +39,7 @@ class bump(commands.Cog):
 
                 if user_in_db.get_user(ctx.author.id): #user_in:
                     
-                    dic_key = ['id','username','username_id','name','location','height','dating_status','looking_for','hobbies','biography','premium_day','profile_date']
+                    dic_key = ['id','username','username_id','name','location','looking_for','hobbies','biography','premium_day','profile_date']
                     user_d = user_in_db.get_user(ctx.author.id)
                     user_data ={}
                     for i in range(len(dic_key)):
@@ -57,7 +57,7 @@ class bump(commands.Cog):
                     elif female in ctx.author.roles:
                         channel = self.bot.get_channel(data.female_channel)
                     else:
-                        user.send("you need a role to bump")
+                        await user.send("you need a male to bump")
 
                     """
                     Embed 
@@ -83,9 +83,7 @@ class bump(commands.Cog):
 
                     embed.add_field(name="Orientation", value=f"Straight", inline=True)
                     embed.add_field(name="Location", value=f"{user_data['location']}", inline=True)
-                    embed.add_field(name="Dating status", value=f"{user_data['dating_status']}", inline=True)
-                    embed.add_field(name="Height", value=f"{user_data['height']}", inline=True)
-
+                 
                     embed.add_field(name="DMs status", value=f"dm status", inline=True)
                     embed.add_field(name="Verification level", value=f"Not verified", inline=True)
 
