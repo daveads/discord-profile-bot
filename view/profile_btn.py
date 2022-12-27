@@ -16,6 +16,8 @@ class Profile(discord.ui.View):
         super().__init__(timeout=None)
         self.bot = bot
         self.dic_key = ['id','username','username_id','name','location','looking_for','hobbies','biography','premium_day','profile_date']
+        self.seconds = 259200 #3days
+        self.cooldown = commands.CooldownMapping.from_cooldown(1, self.seconds, commands.BucketType.member)
 
 
     # CREATE BUTTON 
@@ -172,8 +174,29 @@ class Profile(discord.ui.View):
     # BUMP BUTTON 
     @discord.ui.button(label='Bump', style=discord.ButtonStyle.blurple, emoji='📢', custom_id='bump', row=1)
     async def bump(self, interaction: discord.Interaction, button: discord.ui.Button):
+
+        bucket = self.cooldown.get_bucket(interaction.message)
+        retry = bucket.update_rate_limit()
         
-        await interaction.response.send_message("OK", ephemeral=True)
+        
+        #minutes = str(retry % 60)
+        # , {minutes} minutes {round(retry, 1)} seconds
+
+        if retry:
+            second = round(retry, 1)
+            hours = (retry // 3600)
+            minutes = (hours * 60)
+
+            day = hours / 24
+            
+
+            await interaction.response.send_message(f"try again in {round(day)} Days {hours} hours {minutes} minutes, {second} seconds", ephemeral=True)        
+            #print(hours)
+            
+            #bucket.reset()
+            
+        else:
+            await interaction.response.send_message("OK", ephemeral=True)
 
 
 
@@ -213,4 +236,94 @@ class Profile(discord.ui.View):
 
 
 
-# Gender, Sexuality, Relationship, Height & DM Status, dating status
+# Gender,  age  __
+
+
+# sexuality   
+"""
+hetorsexual
+homosexual
+bisexual
+pansexual
+asexual
+demisexual
+bicurious ****
+"""
+
+# height 
+"""
+4'6-4'8 |     137-142cm
+4'8- 4'10 |   142-147cm
+4'10 - 5'10 | 147-152cm
+5'0 - 5'2 |   152-157cm
+5'2 - 5'4 |   157-162cm
+5'4 - 5'8 |   162-167cm
+5'8 - 5'10 |  167-177cm
+5'10 - 6'0 |  177-182cm
+6'0 - 6'2 |   182-187cm
+6'2 - 6'4 |   187-193cm
+6'4+ | 193cm+
+"""
+
+# dm status   
+"""
+dm-open  *
+dm-open[no-nsfw]  
+dm-ask  * 
+dm-open[verified-only]   
+dm-closed *
+"""
+
+# dating status
+"""
+single
+taken
+it's complicated
+search
+not searching
+polyamorous
+"""
+
+# occupation
+"""
+* in high school
+* in college /studing
+* Employed
+* unemployed
+"""
+
+# location 
+"""
+north america
+south america
+europe
+africa
+middle east
+"""
+
+# preferecence
+"""
+What's you preference
+
+Age | prefer Younger(18+)
+Prefer same age
+prefer older
+prefer shorter
+perfer taller
+
+"""
+
+
+# pronoun 
+"""
+he/him
+she/her
+they/them
+any pronouns
+Ask pronouns
+"""
+# pick only one, pick all, reset
+
+
+# for profile 
+# age gender orientation Location dating-status height dm-status verification_level[verified, half-verified, not-verified]  
