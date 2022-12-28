@@ -11,7 +11,10 @@ from core import configs
 # class initialized
 user_in_db = queries.PROFILEque()
 user_embed = embed.Embed()
-data = configs.Datajson()
+#data = configs.Datajson()
+
+from core.config_parser import BotConfigs
+bot_configs = BotConfigs()
 
 
 class Profile(discord.ui.View):
@@ -186,7 +189,8 @@ class Profile(discord.ui.View):
         # , {minutes} minutes {round(retry, 1)} seconds
 
         user = await self.bot.fetch_user(interaction.user.id)
-        role = discord.utils.get(interaction.guild.roles, id=data.premium_role)
+        role = discord.utils.get(interaction.guild.roles, id=bot_configs.role('premium_role_id')) 
+        
 
         if role in interaction.user.roles:
             await user.send("premium user should use the !bumpp commands")
@@ -216,14 +220,14 @@ class Profile(discord.ui.View):
                         user_data[self.dic_key[i]] = user_d[i] 
 
                     print(user_data)
+                    
+                    male = discord.utils.get(interaction.guild.roles, id=bot_configs.gender('male'))
+                    female = discord.utils.get(interaction.guild.roles, id=bot_configs.gender('female'))
+                    #others = discord.utils.get(interaction.guild.roles, id=1053923859105067019)
 
-                    male = discord.utils.get(interaction.guild.roles, id=data.male_role)
-                    female = discord.utils.get(interaction.guild.roles, id=data.female_role)
-                    others = discord.utils.get(interaction.guild.roles, id=1053923859105067019)
-
-                    channel_male = self.bot.get_channel(1053923746945171476)
-                    channel_female = self.bot.get_channel(1053923789009854474)
-                    channel_other = self.bot.get_channel(1053923859105067019)
+                    channel_male = self.bot.get_channel(bot_configs.channel('male_channel'))
+                    channel_female = self.bot.get_channel(bot_configs.channel('female_channel'))
+                    channel_other = self.bot.get_channel(bot_configs.channel('others_channel'))
 
                     """
                     Embed 
@@ -232,14 +236,14 @@ class Profile(discord.ui.View):
                     embed.set_thumbnail(url=user.avatar)
                     embed.set_author(name=f"{user}", icon_url=(user.avatar))
                     embed.add_field(name="Name", value=f"{user_data['name']}", inline=True)
-                    embed.add_field(name="Age", value=f"24", inline=True)
-                    embed.add_field(name="Gender", value=f"{male}", inline=True)
-                    embed.add_field(name="Orientation", value=f"Straight", inline=True)
+                    #embed.add_field(name="Age", value=f"24", inline=True)
+                    #embed.add_field(name="Gender", value=f"{male}", inline=True)
+                    #embed.add_field(name="Orientation", value=f"Straight", inline=True)
                     embed.add_field(name="Location", value=f"{user_data['location']}", inline=True)
-                    embed.add_field(name="DMs status", value=f"dm status", inline=True)
-                    embed.add_field(name="Verification level", value=f"Not verified", inline=True)
-                    embed.add_field(name="Looking for ", value=f"{user_data['looking_for']}", inline=False)
-                    embed.add_field(name="Hobbies ", value=f"{user_data['hobbies']}", inline=False)
+                    #embed.add_field(name="DMs status", value=f"dm status", inline=True)
+                    #embed.add_field(name="Verification level", value=f"Not verified", inline=True)
+                    embed.add_field(name="Looking for ", value=f"{user_data['looking_for']}", inline=True)
+                    embed.add_field(name="Hobbies ", value=f"{user_data['hobbies']}", inline=True)
                     embed.add_field(name="About me ", value=f"{user_data['biography']}", inline=False)
                     embed.set_footer(text=f"{interaction.guild.name}", icon_url=interaction.guild.icon.url)
 
