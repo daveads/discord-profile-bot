@@ -5,10 +5,14 @@ from model import queries
 from core import embed
 from discord.ext import commands
 import asyncio
+from core import configs
+
 
 # class initialized
 user_in_db = queries.PROFILEque()
 user_embed = embed.Embed()
+data = configs.Datajson()
+
 
 class Profile(discord.ui.View):
     
@@ -18,8 +22,7 @@ class Profile(discord.ui.View):
         self.dic_key = ['id','username','username_id','name','location','looking_for','hobbies','biography','premium_day','profile_date']
         self.seconds = 259200 #3days
         self.cooldown = commands.CooldownMapping.from_cooldown(1, self.seconds, commands.BucketType.member)
-
-
+        
     # CREATE BUTTON 
     @discord.ui.button(label='Create', style=discord.ButtonStyle.green, emoji='✅', custom_id='create', row=1)
     async def create(self, interaction: discord.Interaction, button: discord.ui.Button):
@@ -182,22 +185,85 @@ class Profile(discord.ui.View):
         #minutes = str(retry % 60)
         # , {minutes} minutes {round(retry, 1)} seconds
 
-        if retry:
-            second = round(retry, 1)
-            hours = (retry // 3600)
-            minutes = (hours * 60)
+        user = await self.bot.fetch_user(interaction.user.id)
+        role = discord.utils.get(interaction.guild.roles, id=data.premium_role)
 
-            day = hours / 24
-            
+        if role in interaction.user.roles:
+            await user.send("premium user should use the !bumpp commands")
+            bucket.reset()
 
-            await interaction.response.send_message(f"try again in {round(day)} Days {hours} hours {minutes} minutes, {second} seconds", ephemeral=True)        
-            #print(hours)
-            
-            #bucket.reset()
-            
         else:
-            await interaction.response.send_message("OK", ephemeral=True)
 
+            if user_in_db.get_user(interaction.user.id):
+         
+                if retry:
+                    second = round(retry, 1)
+                    hours = (retry // 3600)
+                    minutes = (hours * 60)
+
+                    day = hours / 24
+            
+
+                    await interaction.response.send_message(f"try again in {round(day)} Days {hours} hours {minutes} minutes, {second} seconds", ephemeral=True)        
+
+            
+                else:
+                    await interaction.response.send_message("OK", ephemeral=True)
+
+                    user_d = user_in_db.get_user(interaction.user.id)
+                    user_data ={}
+                    for i in range(len(self.dic_key)):
+                        user_data[self.dic_key[i]] = user_d[i] 
+
+                    print(user_data)
+
+                    male = discord.utils.get(interaction.guild.roles, id=data.male_role)
+                    female = discord.utils.get(interaction.guild.roles, id=data.female_role)
+                    others = discord.utils.get(interaction.guild.roles, id=1053923859105067019)
+
+                    channel_male = self.bot.get_channel(1053923746945171476)
+                    channel_female = self.bot.get_channel(1053923789009854474)
+                    channel_other = self.bot.get_channel(1053923859105067019)
+
+                    """
+                    Embed 
+                    """
+                    embed=discord.Embed(title=f"User: <@{user.id}>", url="", description="", color=discord.Color.red())
+                    embed.set_thumbnail(url=user.avatar)
+                    embed.set_author(name=f"{user}", icon_url=(user.avatar))
+                    embed.add_field(name="Name", value=f"{user_data['name']}", inline=True)
+                    embed.add_field(name="Age", value=f"24", inline=True)
+                    embed.add_field(name="Gender", value=f"{male}", inline=True)
+                    embed.add_field(name="Orientation", value=f"Straight", inline=True)
+                    embed.add_field(name="Location", value=f"{user_data['location']}", inline=True)
+                    embed.add_field(name="DMs status", value=f"dm status", inline=True)
+                    embed.add_field(name="Verification level", value=f"Not verified", inline=True)
+                    embed.add_field(name="Looking for ", value=f"{user_data['looking_for']}", inline=False)
+                    embed.add_field(name="Hobbies ", value=f"{user_data['hobbies']}", inline=False)
+                    embed.add_field(name="About me ", value=f"{user_data['biography']}", inline=False)
+                    embed.set_footer(text=f"{interaction.guild.name}", icon_url=interaction.guild.icon.url)
+
+                    #await channel.send(f"{interaction.user.mention}")
+                    #await channel.send(embed=embed)
+                    
+                    if male in interaction.user.roles:
+                        await channel_male.send(f"{user.mention}")
+                        await channel_male.send(embed=embed)
+
+                    elif female in interaction.user.roles:
+                        await channel_female.send(f"{user.mention}")
+                        await channel_female.send(embed=embed)
+
+                    else:
+                        await channel_other.send(f"{user.mention}")
+                        await channel_other.send(embed=embed)
+
+
+
+
+            else:
+                await interaction.response.send_message("you don't have a profile", ephemeral=True)
+                bucket.reset()
 
 
 

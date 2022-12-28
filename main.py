@@ -39,7 +39,7 @@ async def prep(ctx: commands.Context):
     await ctx.send(file=discord.File('profile.jpg'))
 
     info = """**Create your own profile to describe yourself and start meeting others!** \n\n  📝 ➤ Edit Profile \n  `Update your information` \n\n 🔎 ➤ Preview Profile \n  `Preview your current profile!` \n\n 📢 ➤ Bump the server \n  `cooldown: (Nomal 3d)` 
-           \n **For premium user should use the `/bumpp` command *Coming soon* ** \n *The `/bumpp command cost $3 monthly` message moderators to get more details on that* \n  `cooldown: (Normal: 12hrs)` 
+           \n **For premium user should use the `/bumpp` command *~~Coming soon~~* ** \n *The `/bumpp command cost $3 monthly` message moderators to get more details on that* \n  `cooldown: (Normal: 12hrs)` 
             \n """
 
     await ctx.send(info, view=Profile(bot))

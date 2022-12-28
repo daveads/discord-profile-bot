@@ -51,7 +51,7 @@ def main():
                                                                   "nothing much yet",
                                                                    
                                                                    0,
-                                                                  "2022-10-03",
+                                                                  "2024-12-12",
                                                                   "2022-10-03"))
       print("default values inputed")
       con.commit()
