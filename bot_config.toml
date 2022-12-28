@@ -1,0 +1,33 @@
+[owner]
+owners_id = 840152379122384896
+
+[admins]
+moderators = ""
+
+[channels]
+profile_channel = 1053923537020260353
+profile_commands_admin = 990619189058355281
+male_channel = 1053923746945171476
+female_channel = 1053923789009854474
+others_channel = 1053923859105067019
+
+[user_roles]
+premium_role_id = 1026476154225446962
+check = ""
+
+[gender]
+male = 1046713076172464199
+female = 1046713218996912158
+trans_female = 0
+non_binary = 0
+agender = 0
+bigender = 0
+genderfluid = 0
+
+[age_role]
+'18-22' = 0
+'23-27' = 1046719082931683328
+'28-30+' = 0
+
+[image]
+profile_image = "profile.jpg"
