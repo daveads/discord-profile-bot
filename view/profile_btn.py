@@ -16,6 +16,14 @@ user_embed = embed.Embed()
 from core.config_parser import BotConfigs
 bot_configs = BotConfigs()
 
+async def get_element(array):
+    element = None
+    for i in range(len(array)):
+        if array[i] == True:
+            element = i
+            #print(i)
+               
+    return element
 
 class Profile(discord.ui.View):
     
@@ -25,6 +33,8 @@ class Profile(discord.ui.View):
         self.dic_key = ['id','username','username_id','name','location','looking_for','hobbies','biography','premium_day','profile_date']
         self.seconds = 259200 #3days
         self.cooldown = commands.CooldownMapping.from_cooldown(1, self.seconds, commands.BucketType.member)
+        
+
         
     # CREATE BUTTON 
     @discord.ui.button(label='Create', style=discord.ButtonStyle.green, emoji='✅', custom_id='create', row=1)
@@ -181,6 +191,36 @@ class Profile(discord.ui.View):
     @discord.ui.button(label='Bump', style=discord.ButtonStyle.blurple, emoji='📢', custom_id='bump', row=1)
     async def bump(self, interaction: discord.Interaction, button: discord.ui.Button):
 
+        # idk
+        self.user = await interaction.guild.fetch_member(interaction.user.id)
+
+        #gender roles
+        self.role_male =  discord.utils.get(interaction.guild.roles, id=bot_configs.gender('male')) 
+        self.role_female =  discord.utils.get(interaction.guild.roles, id=bot_configs.gender("female"))
+        self.role_trans_female =  discord.utils.get(interaction.guild.roles, id=bot_configs.gender("trans_female"))
+        self.role_non_binary =  discord.utils.get(interaction.guild.roles, id=bot_configs.gender("non_binary"))
+        self.role_agender =  discord.utils.get(interaction.guild.roles, id=bot_configs.gender("agender"))
+        self.role_bigender = discord.utils.get(interaction.guild.roles, id=bot_configs.gender("bigender"))
+        self.role_genderfluid = discord.utils.get(interaction.guild.roles, id=bot_configs.gender("genderfluid"))
+       
+
+        #age roles 
+        self.a18_22 = discord.utils.get(interaction.guild.roles, id=bot_configs.age('18-22')) 
+        self.a23_27 = discord.utils.get(interaction.guild.roles, id=bot_configs.age('23-27')) 
+        self.a28_30 = discord.utils.get(interaction.guild.roles, id=bot_configs.age('28-30+')) 
+
+        gender_roles = [self.role_male, self.role_female, self.role_trans_female, self.role_non_binary, self.role_agender, self.role_bigender, self.role_genderfluid]
+       
+        age_roles = [self.a18_22, self.a23_27, self.a28_30]
+
+
+        import numpy as np
+        gender_check = np.isin(gender_roles, self.user.roles)
+        age_check = np.isin(age_roles, self.user.roles)
+
+        age_get = await get_element(age_check)
+        gender_get = await get_element(gender_check)
+
         bucket = self.cooldown.get_bucket(interaction.message)
         retry = bucket.update_rate_limit()
         
@@ -236,8 +276,8 @@ class Profile(discord.ui.View):
                     embed.set_thumbnail(url=user.avatar)
                     embed.set_author(name=f"{user}", icon_url=(user.avatar))
                     embed.add_field(name="Name", value=f"{user_data['name']}", inline=True)
-                    #embed.add_field(name="Age", value=f"24", inline=True)
-                    #embed.add_field(name="Gender", value=f"{male}", inline=True)
+                    embed.add_field(name="Age", value=f"{gender_roles[gender_get]}", inline=True)
+                    embed.add_field(name="Gender", value=f"{age_roles[age_get]}", inline=True)
                     #embed.add_field(name="Orientation", value=f"Straight", inline=True)
                     embed.add_field(name="Location", value=f"{user_data['location']}", inline=True)
                     #embed.add_field(name="DMs status", value=f"dm status", inline=True)
