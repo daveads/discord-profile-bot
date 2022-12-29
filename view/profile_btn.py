@@ -209,6 +209,56 @@ class Profile(discord.ui.View):
         self.a23_27 = discord.utils.get(interaction.guild.roles, id=bot_configs.age('23-27')) 
         self.a28_30 = discord.utils.get(interaction.guild.roles, id=bot_configs.age('28-30+')) 
 
+
+        #orientation
+        """
+        self.hetorsexual
+        self.homosexual
+        self.bisexual
+        self.pansexual
+        self.asexual
+        self.demisexual
+        self.bicurious
+        """
+
+        #height
+        """
+        4'6-4'8 |     137-142cm
+        4'8- 4'10 |   142-147cm
+        4'10 - 5'10 | 147-152cm
+        5'0 - 5'2 |   152-157cm
+        5'2 - 5'4 |   157-162cm
+        5'4 - 5'8 |   162-167cm
+        5'8 - 5'10 |  167-177cm
+        5'10 - 6'0 |  177-182cm
+        6'0 - 6'2 |   182-187cm
+        6'2 - 6'4 |   187-193cm
+        6'4+ | 193cm+
+        """
+
+
+
+        #DMs status
+        """
+        dm-open  *
+        dm-open[no-nsfw]  
+        dm-ask  * 
+        dm-open[verified-only]   
+        dm-closed *
+        """
+
+        #dating status
+        """
+        single
+        taken
+        it's complicated
+        search
+        not searching
+        polyamorous
+        """
+
+        #verification level
+
         gender_roles = [self.role_male, self.role_female, self.role_trans_female, self.role_non_binary, self.role_agender, self.role_bigender, self.role_genderfluid]
        
         age_roles = [self.a18_22, self.a23_27, self.a28_30]
@@ -282,6 +332,8 @@ class Profile(discord.ui.View):
                     embed.add_field(name="Location", value=f"{user_data['location']}", inline=True)
                     #embed.add_field(name="DMs status", value=f"dm status", inline=True)
                     #embed.add_field(name="Verification level", value=f"Not verified", inline=True)
+                    #height
+                    #dating status
                     embed.add_field(name="Looking for ", value=f"{user_data['looking_for']}", inline=True)
                     embed.add_field(name="Hobbies ", value=f"{user_data['hobbies']}", inline=True)
                     embed.add_field(name="About me ", value=f"{user_data['biography']}", inline=False)
