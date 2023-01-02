@@ -486,6 +486,13 @@ class Profile(discord.ui.View):
             await user_embed.user_reply(user,"YOU DONT HAVE A PROFILE YET")
 
 
+    # CREATE BUTTON 
+    @discord.ui.button(label='Upload', style=discord.ButtonStyle.green, emoji='📁', custom_id='upload', row=1)
+    async def upload(self, interaction: discord.Interaction, button: discord.ui.Button):
+
+        pass 
+
+
 
 # Gender,  age  __
 
