@@ -487,7 +487,7 @@ class Profile(discord.ui.View):
 
 
     # CREATE BUTTON 
-    @discord.ui.button(label='Upload', style=discord.ButtonStyle.green, emoji='📁', custom_id='upload', row=1)
+    @discord.ui.button(label='Upload', style=discord.ButtonStyle.blurple, emoji='📁', disabled=True, custom_id='upload', row=1)
     async def upload(self, interaction: discord.Interaction, button: discord.ui.Button):
 
         pass 
