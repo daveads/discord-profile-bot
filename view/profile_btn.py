@@ -40,6 +40,8 @@ class Profile(discord.ui.View):
     @discord.ui.button(label='Create', style=discord.ButtonStyle.green, emoji='✅', custom_id='create', row=1)
     async def create(self, interaction: discord.Interaction, button: discord.ui.Button):
         
+        # gender, age, orientation, datingstatus, dmstatus, height
+        
         print(f'user profile id {interaction.user.id}') 
         user = await self.bot.fetch_user(interaction.user.id)
 
@@ -47,6 +49,8 @@ class Profile(discord.ui.View):
         if user_in_db.get_user(interaction.user.id):
             await interaction.response.defer()
             await user_embed.user_reply(user,"you have a profile created already")
+
+            print("Testing***" ,self.a23_27)
 
         else:
 
@@ -211,17 +215,28 @@ class Profile(discord.ui.View):
 
 
         #orientation
-        """
-        self.hetorsexual
-        self.homosexual
-        self.bisexual
-        self.pansexual
-        self.asexual
-        self.demisexual
-        self.bicurious
-        """
+        self.hetorsexual = discord.utils.get(interaction.guild.roles, id=bot_configs.orientaion('hetorsexual'))
+        self.homosexual = discord.utils.get(interaction.guild.roles, id=bot_configs.orientaion('homosexual'))
+        self.bisexual = discord.utils.get(interaction.guild.roles, id=bot_configs.orientaion('bisexual'))
+        self.pansexual = discord.utils.get(interaction.guild.roles, id=bot_configs.orientaion('pansexual'))
+        self.asexual = discord.utils.get(interaction.guild.roles, id=bot_configs.orientaion('asexual'))
+        self.demisexual = discord.utils.get(interaction.guild.roles, id=bot_configs.orientaion('demisexual'))
+        self.bicurious = discord.utils.get(interaction.guild.roles, id=bot_configs.orientaion('bicurious'))
+        
 
         #height
+        self.H4_6_4_8 = discord.utils.get(interaction.guild.roles, id=bot_configs.height('H4_6_4_8'))
+        self.H4_8_4_10 = discord.utils.get(interaction.guild.roles, id=bot_configs.height('H4_8_4_10'))
+        self.H4_10_5_10 = discord.utils.get(interaction.guild.roles, id=bot_configs.height('H4_10_5_10'))
+        self.H5_0_5_2 = discord.utils.get(interaction.guild.roles, id=bot_configs.height('H5_0_5_2'))
+        self.H5_2_5_4 = discord.utils.get(interaction.guild.roles, id=bot_configs.height('H5_2_5_4'))
+        self.H5_4_5_8 = discord.utils.get(interaction.guild.roles, id=bot_configs.height('H5_4_5_8'))
+        self.H5_8_5_10 = discord.utils.get(interaction.guild.roles, id=bot_configs.height('H5_8_5_10'))
+        self.H5_10_6_0 = discord.utils.get(interaction.guild.roles, id=bot_configs.height('H5_10_6_0'))
+        self.H6_0_6_2 = discord.utils.get(interaction.guild.roles, id=bot_configs.height('H6_0_6_2'))
+        self.H6_2_6_4 = discord.utils.get(interaction.guild.roles, id=bot_configs.height('H6_2_6_4'))
+        self.H6_4_ = discord.utils.get(interaction.guild.roles, id=bot_configs.height('H6_4_'))
+
         """
         4'6-4'8 |     137-142cm
         4'8- 4'10 |   142-147cm
@@ -239,37 +254,55 @@ class Profile(discord.ui.View):
 
 
         #DMs status
-        """
-        dm-open  *
-        dm-open[no-nsfw]  
-        dm-ask  * 
-        dm-open[verified-only]   
-        dm-closed *
-        """
+        self.dmOpen = discord.utils.get(interaction.guild.roles, id=bot_configs.dmstatus('dmOpen'))
+        self.dmOpenNoNsfw =discord.utils.get(interaction.guild.roles, id=bot_configs.dmstatus('dmOpenNoNsfw'))
+        self.dmAsk = discord.utils.get(interaction.guild.roles, id=bot_configs.dmstatus('dmAsk'))
+        self.dmOpenVerifiedOnly = discord.utils.get(interaction.guild.roles, id=bot_configs.dmstatus('dmOpenVerifiedOnly'))
+        self.dmClosed = discord.utils.get(interaction.guild.roles, id=bot_configs.dmstatus('dmClosed'))
+    
 
-        #dating status
-        """
-        single
-        taken
-        it's complicated
-        search
-        not searching
-        polyamorous
-        """
+        #dating-status
+        self.single = discord.utils.get(interaction.guild.roles, id=bot_configs.datingstatus("single"))
+        self.taken =discord.utils.get(interaction.guild.roles, id=bot_configs.datingstatus("taken"))
+        self.complicated = discord.utils.get(interaction.guild.roles, id=bot_configs.datingstatus("complicated"))
+        self.searching = discord.utils.get(interaction.guild.roles, id=bot_configs.datingstatus("searching"))
+        self.nsearching = discord.utils.get(interaction.guild.roles, id=bot_configs.datingstatus("nsearching"))
+        self.polyamorous = discord.utils.get(interaction.guild.roles, id=bot_configs.datingstatus("polyamorous"))
 
-        #verification level
+        #Needed roles
 
         gender_roles = [self.role_male, self.role_female, self.role_trans_female, self.role_non_binary, self.role_agender, self.role_bigender, self.role_genderfluid]
-       
+        print("print >>>>",gender_roles)
+        
         age_roles = [self.a18_22, self.a23_27, self.a28_30]
 
+        orientation_roles = [self.hetorsexual, self.homosexual, self.asexual, self.bicurious, self.bisexual, self.demisexual, self.pansexual]
+
+        datingstatus_roles = [self.single, self.taken, self.complicated, self.searching, self.nsearching, self.polyamorous]
+
+        dmstatus_roles = [self.dmAsk, self.dmClosed, self.dmOpen, self.dmOpenNoNsfw, self.dmOpenVerifiedOnly]
+
+        height_roles = [self.H4_6_4_8, self.H4_8_4_10, self.H4_10_5_10, self.H5_0_5_2, self.H5_2_5_4, self.H5_4_5_8, self.H5_8_5_10, self.H5_10_6_0, self.H6_0_6_2, self.H6_2_6_4, self.H6_4_] 
+        
+        
 
         import numpy as np
+
+        # CHECKS IF ROLE is in User object
         gender_check = np.isin(gender_roles, self.user.roles)
         age_check = np.isin(age_roles, self.user.roles)
-
+        orientation_check = np.isin(orientation_roles, self.user.roles)
+        datingstatus_check = np.isin(datingstatus_roles, self.user.roles)
+        dmstatus_check = np.isin(dmstatus_roles, self.user.roles)
+        height_check = np.isin(height_roles, self.user.roles)
+        
+        # array index
         age_get = await get_element(age_check)
         gender_get = await get_element(gender_check)
+        orientation_get = await get_element(orientation_check)
+        datingstatus_get = await get_element(datingstatus_check)
+        dmstatus_get = await get_element(dmstatus_check)
+        height_get = await get_element(height_check)
 
         bucket = self.cooldown.get_bucket(interaction.message)
         retry = bucket.update_rate_limit()
@@ -328,12 +361,12 @@ class Profile(discord.ui.View):
                     embed.add_field(name="Name", value=f"{user_data['name']}", inline=True)
                     embed.add_field(name="Age", value=f"{gender_roles[gender_get]}", inline=True)
                     embed.add_field(name="Gender", value=f"{age_roles[age_get]}", inline=True)
-                    #embed.add_field(name="Orientation", value=f"Straight", inline=True)
+                    embed.add_field(name="Orientation", value=f"{orientation_roles[orientation_get]}", inline=True)
                     embed.add_field(name="Location", value=f"{user_data['location']}", inline=True)
-                    #embed.add_field(name="DMs status", value=f"dm status", inline=True)
                     #embed.add_field(name="Verification level", value=f"Not verified", inline=True)
-                    #height
-                    #dating status
+                    embed.add_field(name="Height", value=f"{height_roles[height_get]}", inline=True)
+                    embed.add_field(name="DMs status", value=f"{dmstatus_roles[dmstatus_get]}", inline=True)
+                    embed.add_field(name="dating status", value=f"{datingstatus_roles[datingstatus_get]}", inline=True)
                     embed.add_field(name="Looking for ", value=f"{user_data['looking_for']}", inline=True)
                     embed.add_field(name="Hobbies ", value=f"{user_data['hobbies']}", inline=True)
                     embed.add_field(name="About me ", value=f"{user_data['biography']}", inline=False)

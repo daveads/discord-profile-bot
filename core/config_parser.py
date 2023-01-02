@@ -42,3 +42,21 @@ class BotConfigs:
     def age(self, age):
         if age in self.data['age']:
             return self.data['age'][age]
+
+
+    def orientaion(self,orient):
+        if orient in self.data["orientation"]:
+            return self.data['orientation'][orient]
+
+    def datingstatus(self, status):
+        if status in self.data["datingstatus"]:
+            return self.data["datingstatus"][status]
+
+
+    def dmstatus(self, status):
+        if status in self.data['dmstatus']:
+            return self.data['dmstatus'][status]
+
+    def height(self, heig):
+        if heig in self.data['height']:
+            return self.data['height'][heig]
