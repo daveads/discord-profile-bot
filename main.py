@@ -6,6 +6,11 @@ import asyncio
 from model import profile
 from view.profile_btn import Profile
 
+
+from typing import Literal, Optional
+from discord.ext.commands import Greedy, Context
+
+
 # intializing database
 profile.main()
 
@@ -39,6 +44,44 @@ async def prep(ctx: commands.Context):
             \n **Required Roles to create a profile**\n`Gender, Age, Orientation, Dating-status, Dm-status, Height`  """
 
     await ctx.send(info, view=Profile(bot))
+
+#https://gist.github.com/AbstractUmbra/a9c188797ae194e592efe05fa129c57f
+@bot.command()
+@commands.guild_only()
+@commands.is_owner()
+async def sync(
+  ctx: Context, guilds: Greedy[discord.Object], spec: Optional[Literal["~", "*", "^"]] = None) -> None:
+    if not guilds:
+        if spec == "~":
+            synced = await ctx.bot.tree.sync(guild=ctx.guild)
+        elif spec == "*":
+            ctx.bot.tree.copy_global_to(guild=ctx.guild)
+            synced = await ctx.bot.tree.sync(guild=ctx.guild)
+        elif spec == "^":
+            ctx.bot.tree.clear_commands(guild=ctx.guild)
+            await ctx.bot.tree.sync(guild=ctx.guild)
+            synced = []
+        else:
+            synced = await ctx.bot.tree.sync()
+
+        await ctx.send(
+            f"Synced {len(synced)} commands {'globally' if spec is None else 'to the current guild.'}"
+        )
+        return
+
+    ret = 0
+    for guild in guilds:
+        try:
+            await ctx.bot.tree.sync(guild=guild)
+        except discord.HTTPException:
+            pass
+
+
+        else:
+            ret += 1
+
+    await ctx.send(f"Synced the tree to {ret}/{len(guilds)}.")
+
 
 bot.remove_command('help')  
 async def main():
