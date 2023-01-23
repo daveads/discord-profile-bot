@@ -146,7 +146,7 @@ class Profile(discord.ui.View):
         
         # gender, age, orientation, datingstatus, dmstatus, height
         
-        print(f'user profile id {interaction.user.id}') 
+        #print(f'user profile id {interaction.user.id}') 
         user = await self.bot.fetch_user(interaction.user.id)
 
         
@@ -409,7 +409,7 @@ class Profile(discord.ui.View):
                     for i in range(len(self.dic_key)):
                         user_data[self.dic_key[i]] = user_d[i] 
 
-                    print(user_data)
+                    #print(user_data)
                     
                     male = discord.utils.get(interaction.guild.roles, id=bot_configs.gender('male'))
                     female = discord.utils.get(interaction.guild.roles, id=bot_configs.gender('female'))
@@ -482,7 +482,7 @@ class Profile(discord.ui.View):
             for i in range(len(self.dic_key)):
                 user_data[self.dic_key[i]] = user_d[i]
 
-            print(user_data)
+            #print(user_data)
             embed=discord.Embed(title=f"PROFILE `{user_data['username']}` ", description="Your current profile details", color=discord.Color.blue())
             embed.set_thumbnail(url=user.avatar)
             embed.add_field(name="NAME ", value=f"{user_data['name']}", inline=True)
