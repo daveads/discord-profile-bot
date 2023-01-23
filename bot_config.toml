@@ -23,11 +23,14 @@ non_binary = 0
 agender = 0
 bigender = 0
 genderfluid = 0
+t_ftm = 0
+t_mtf = 0
 
-[age]
-'18-22' = 0
-'23-27' = 1046719082931683328
-'28-30+' = 0
+[age_role]
+'18-21' = 0
+'22-25' = 1046719082931683328
+'26-30' = 0
+'31+'   = 0
 
 [image]
 profile_image = "profile.jpg"
@@ -49,6 +52,9 @@ complicated = 0
 searching = 0
 nsearching = 0
 polyamorous = 0
+married = 0
+in_a_relatiohship = 0
+
 
 [dmstatus]
 dmOpen = 1059409970770231306 
@@ -60,12 +66,13 @@ dmClosed =0
 [height]
 H4_6_4_8 = 0
 H4_8_4_10 = 0
-H4_10_5_10 = 0
+H4_10_5_0 = 0
 H5_0_5_2 =0
 H5_2_5_4 =0
-H5_4_5_8 = 0
-H5_8_5_10 = 1059428687696625694
-H5_10_6_0 =0
+H5_4_5_6 = 0
+H5_6_5_8 = 1059428687696625694
+H5_8_5_10 =0
+H5_10_6_0 = 0
 H6_0_6_2 =0
 H6_2_6_4 =0
 H6_4_ =0

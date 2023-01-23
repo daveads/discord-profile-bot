@@ -1,3 +1,4 @@
+from email.errors import MultipartInvariantViolationDefect
 from view.profile_modal import Creatprofile
 import discord
 from model import profile
@@ -25,24 +26,30 @@ async def get_element(array):
                
     return element
 
-async def gender(interaction):
-    role_male =  discord.utils.get(interaction.guild.roles, id=bot_configs.gender('male')) 
+async def gender(interaction):    
+    #gender roles id
+    role_male =  discord.utils.get(interaction.guild.roles, id=bot_configs.gender("male")) 
     role_female =  discord.utils.get(interaction.guild.roles, id=bot_configs.gender("female"))
     role_trans_female =  discord.utils.get(interaction.guild.roles, id=bot_configs.gender("trans_female"))
     role_non_binary =  discord.utils.get(interaction.guild.roles, id=bot_configs.gender("non_binary"))
     role_agender =  discord.utils.get(interaction.guild.roles, id=bot_configs.gender("agender"))
     role_bigender = discord.utils.get(interaction.guild.roles, id=bot_configs.gender("bigender"))
     role_genderfluid = discord.utils.get(interaction.guild.roles, id=bot_configs.gender("genderfluid"))
+    role_t_ftm = discord.utils.get(interaction.guild.roles, id=bot_configs.gender("t_ftm"))
+    role_t_mtf = discord.utils.get(interaction.guild.roles, id=bot_configs.gender("t_mtf"))
 
-    genObj = [role_male, role_female, role_trans_female, role_non_binary, role_agender, role_bigender, role_genderfluid]
+    genObj = [role_male, role_female, role_trans_female, role_non_binary, role_agender, role_bigender, role_genderfluid, role_t_ftm, role_t_mtf]
     
     return genObj
 
 async def age(interaction):
-    a18_22 = discord.utils.get(interaction.guild.roles, id=bot_configs.age('18-22')) 
-    a23_27 = discord.utils.get(interaction.guild.roles, id=bot_configs.age('23-27')) 
-    a28_30 = discord.utils.get(interaction.guild.roles, id=bot_configs.age('28-30+')) 
-    ageObj = [a18_22, a23_27, a28_30]
+    #age roles 
+    a18_21 = discord.utils.get(interaction.guild.roles, id=bot_configs.age_roles('18-21')) 
+    a22_25 = discord.utils.get(interaction.guild.roles, id=bot_configs.age_roles('22-25')) 
+    a26_30 = discord.utils.get(interaction.guild.roles, id=bot_configs.age_roles('26-30')) 
+    a31    = discord.utils.get(interaction.guild.roles, id=bot_configs.age_roles('31+'))
+
+    ageObj = [a18_21, a22_25, a26_30, a31]
     return ageObj
 
 
@@ -81,8 +88,11 @@ async def datingstatus(interaction):
     searching = discord.utils.get(interaction.guild.roles, id=bot_configs.datingstatus("searching"))
     nsearching = discord.utils.get(interaction.guild.roles, id=bot_configs.datingstatus("nsearching"))
     polyamorous = discord.utils.get(interaction.guild.roles, id=bot_configs.datingstatus("polyamorous"))
+    married = discord.utils.get(interaction.guild.roles, id=bot_configs.datingstatus("married"))
+    in_a_relatiohship = discord.utils.get(interaction.guild.roles, id=bot_configs.datingstatus("in_a_relatiohship"))
 
-    dsObj = [single, taken, complicated, searching, nsearching, polyamorous]
+
+    dsObj = [single, taken, complicated, searching, nsearching, polyamorous, married, in_a_relatiohship]
 
     return dsObj
 
@@ -90,17 +100,18 @@ async def height(interaction):
 
     H4_6_4_8 = discord.utils.get(interaction.guild.roles, id=bot_configs.height('H4_6_4_8'))
     H4_8_4_10 = discord.utils.get(interaction.guild.roles, id=bot_configs.height('H4_8_4_10'))
-    H4_10_5_10 = discord.utils.get(interaction.guild.roles, id=bot_configs.height('H4_10_5_10'))
+    H4_10_5_0 = discord.utils.get(interaction.guild.roles, id=bot_configs.height('H4_10_5_0'))
     H5_0_5_2 = discord.utils.get(interaction.guild.roles, id=bot_configs.height('H5_0_5_2'))
     H5_2_5_4 = discord.utils.get(interaction.guild.roles, id=bot_configs.height('H5_2_5_4'))
-    H5_4_5_8 = discord.utils.get(interaction.guild.roles, id=bot_configs.height('H5_4_5_8'))
+    H5_4_5_6 = discord.utils.get(interaction.guild.roles, id=bot_configs.height('H5_4_5_6'))
+    H5_6_5_8 = discord.utils.get(interaction.guild.roles, id=bot_configs.height('H5_6_5_8'))
     H5_8_5_10 = discord.utils.get(interaction.guild.roles, id=bot_configs.height('H5_8_5_10'))
     H5_10_6_0 = discord.utils.get(interaction.guild.roles, id=bot_configs.height('H5_10_6_0'))
     H6_0_6_2 = discord.utils.get(interaction.guild.roles, id=bot_configs.height('H6_0_6_2'))
     H6_2_6_4 = discord.utils.get(interaction.guild.roles, id=bot_configs.height('H6_2_6_4'))
     H6_4_ = discord.utils.get(interaction.guild.roles, id=bot_configs.height('H6_4_'))
 
-    heigObj = [H4_6_4_8, H4_8_4_10, H4_10_5_10, H5_0_5_2, H5_2_5_4, H5_4_5_8, H5_8_5_10, H5_10_6_0, H6_0_6_2, H6_2_6_4, H6_4_] 
+    heigObj = [H4_6_4_8, H4_8_4_10, H4_10_5_0, H5_0_5_2, H5_2_5_4, H5_4_5_6, H5_6_5_8, H5_8_5_10, H5_10_6_0, H6_0_6_2, H6_2_6_4, H6_4_] 
 
     """
     4'6-4'8 |     137-142cm
