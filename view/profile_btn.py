@@ -44,10 +44,10 @@ async def gender(interaction):
 
 async def age(interaction):
     #age roles 
-    a18_21 = discord.utils.get(interaction.guild.roles, id=bot_configs.age_roles('18-21')) 
-    a22_25 = discord.utils.get(interaction.guild.roles, id=bot_configs.age_roles('22-25')) 
-    a26_30 = discord.utils.get(interaction.guild.roles, id=bot_configs.age_roles('26-30')) 
-    a31    = discord.utils.get(interaction.guild.roles, id=bot_configs.age_roles('31+'))
+    a18_21 = discord.utils.get(interaction.guild.roles, id=bot_configs.age('18-21')) 
+    a22_25 = discord.utils.get(interaction.guild.roles, id=bot_configs.age('22-25')) 
+    a26_30 = discord.utils.get(interaction.guild.roles, id=bot_configs.age('26-30')) 
+    a31    = discord.utils.get(interaction.guild.roles, id=bot_configs.age('31+'))
 
     ageObj = [a18_21, a22_25, a26_30, a31]
     return ageObj
