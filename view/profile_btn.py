@@ -319,7 +319,7 @@ class Profile(discord.ui.View):
                             
 
         else:
-
+            await interaction.response.defer()
             await user_embed.user_reply(user,"YOU HAVE NO PROFILE TO EDIT")
     
 
@@ -459,7 +459,8 @@ class Profile(discord.ui.View):
 
             else:
                 #await interaction.response.send_message("you don't have a profile", ephemeral=True)
-                await user_embed.user_reply(user,"you don't have a profile \n\n Click the `CREATE` button to create a profile")
+                await interaction.response.defer()
+                await user_embed.user_reply(user,"You Don't Have a Profile \n Click the `CREATE` button to create a profile")
                 bucket.reset()
 
 
