@@ -233,9 +233,7 @@ class Profile(discord.ui.View):
         
         if user_in_db.get_user(interaction.user.id):
             await interaction.response.defer()
-            await user_embed.user_reply(user,"you have a profile created already")
-
-
+            
             user_d = user_in_db.get_user(interaction.user.id)
             user_data ={}
           
@@ -496,6 +494,7 @@ class Profile(discord.ui.View):
                     await interaction.response.send_message("You Don't Have a Profile \n Click the `CREATE` button to create a profile", ephemeral=True)
                     await asyncio.sleep(60)
                     await interaction.delete_original_response()
+                    bucket.reset()
 
                 
 
