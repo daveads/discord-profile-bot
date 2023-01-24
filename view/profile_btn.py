@@ -196,10 +196,10 @@ class Profile(discord.ui.View):
                 #await interaction.response.defer()
 
                 try:
-                    
-                    await interaction.response.defer()
+                
                     await user_embed.user_reply(user,"You Are Missing Some Roles")
-                    
+                    await interaction.response.defer()
+
                 except:
 
                     await interaction.response.send_message("You Are Missing Some Roles", ephemeral=True)
