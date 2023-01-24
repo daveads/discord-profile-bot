@@ -104,7 +104,7 @@ class profile_data():
       self.profile_date
     ))
       con.commit()
-      con.close()
+      #con.close()
 
     except sqlite3.Error as error:
       print(f"unable to create add {self.username} into the database >> ", error)
