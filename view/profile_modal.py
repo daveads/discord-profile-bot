@@ -45,15 +45,6 @@ class Creatprofile(discord.ui.Modal, title='profile'):
                              self.biography.value,
                 )
 
-        """
-        print(interaction.user)
-        print(interaction.user.id)
-        print(self.name.value)
-        print(self.location.value)
-        print(self.looking_for.value)
-        print(self.hobbies.value)
-        print(self.biography.value)
-        """
 
         await interaction.response.send_message(f'profile created', ephemeral=True)
         await asyncio.sleep(20)

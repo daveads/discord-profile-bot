@@ -183,8 +183,15 @@ class Profile(discord.ui.View):
             return dm
 
         if user_in_db.get_user(interaction.user.id):
-            await interaction.response.defer()
-            await user_embed.user_reply(user,"you have a profile created already")
+
+            try:
+                    await user_embed.user_reply(user,"You Have a Profile Created Already")
+                    await interaction.response.defer()
+
+            except:
+                await interaction.response.send_message("You Have a Profile Created Already", ephemeral=True)
+                await asyncio.sleep(60)
+                await interaction.delete_original_response()
 
                          
         else:
@@ -334,8 +341,14 @@ class Profile(discord.ui.View):
                             
 
         else:
-            await interaction.response.defer()
-            await user_embed.user_reply(user,"YOU HAVE NO PROFILE TO EDIT")
+            try:
+                await user_embed.user_reply(user,"YOU HAVE NO PROFILE TO EDIT")
+                await interaction.response.defer()
+
+            except:
+                await interaction.response.send_message("YOU HAVE NO PROFILE TO EDIT", ephemeral=True)
+                await asyncio.sleep(60)
+                await interaction.delete_original_response()
     
 
 
@@ -473,11 +486,18 @@ class Profile(discord.ui.View):
 
 
             else:
-                #await interaction.response.send_message("you don't have a profile", ephemeral=True)
-                await interaction.response.defer()
-                await user_embed.user_reply(user,"You Don't Have a Profile \n Click the `CREATE` button to create a profile")
-                bucket.reset()
+                try:
+                    await user_embed.user_reply(user,"You Don't Have a Profile \n Click the `CREATE` button to create a profile")
+                    await interaction.response.defer()
+                    bucket.reset()
 
+
+                except:
+                    await interaction.response.send_message("You Don't Have a Profile \n Click the `CREATE` button to create a profile", ephemeral=True)
+                    await asyncio.sleep(60)
+                    await interaction.delete_original_response()
+
+                
 
 
 
@@ -506,12 +526,32 @@ class Profile(discord.ui.View):
             embed.add_field(name="HOBBIES", value=f"{user_data['hobbies']}",inline=True)
             embed.add_field(name="BIOGRAPHY", value=f"{user_data['biography']}", inline=True)
             embed.set_footer(text="profile can only be edited once a week",icon_url=user.avatar)
-            await user.send(embed=embed)
-            await interaction.response.defer()
+
+            try:
+                await user.send(embed=embed)
+                await interaction.response.defer()
+            
+            except:
+                await interaction.response.send_modal(embed=embed, ephemeral=True)
+                await asyncio.sleep(60)
+                await interaction.delete_original_response()
+
+
+
 
         else:
-            await interaction.response.defer()
-            await user_embed.user_reply(user,"YOU DONT HAVE A PROFILE YET")
+
+            try:
+                await user_embed.user_reply(user,"YOU DONT HAVE A PROFILE YET")
+                await interaction.response.defer()
+                
+
+            except:
+                await interaction.response.send_message("YOU DONT HAVE A PROFILE YET", ephemeral=True)
+                await asyncio.sleep(60)
+                await interaction.delete_original_response()
+                
+
 
 
     # CREATE BUTTON 
