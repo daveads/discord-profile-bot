@@ -539,7 +539,7 @@ class Profile(discord.ui.View):
                 await interaction.response.defer()
             
             except:
-                await interaction.response.send_modal(embed, ephemeral=True)
+                await interaction.response.send_message(embed=embed, ephemeral=True)
                 await asyncio.sleep(60)
                 await interaction.delete_original_response()
 
