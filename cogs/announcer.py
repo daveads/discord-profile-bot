@@ -1,13 +1,24 @@
 from discord.ext import commands
 import discord
-import asyncio
+from discord import app_commands 
 
+from view.announce_modal import Announce
 class announce(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
-    pass
-    # /slash command
+
+    @app_commands.command(name="announce", description="feature announcement")
+    async def announce(self, interaction: discord.Interaction):
+        
+        if interaction.user.id == 840152379122384896:
+            
+            modal = Announce()
+            await interaction.response.send_modal(modal)
+                  
+        else:
+            await interaction.response.send_message("Only @daveads#6337 can use this commands")
+            
 
 
 
