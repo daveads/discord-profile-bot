@@ -443,11 +443,9 @@ class Profile(discord.ui.View):
                     for i in range(len(self.dic_key)):
                         user_data[self.dic_key[i]] = user_d[i] 
 
-                    #print(user_data)
                     
                     male = discord.utils.get(interaction.guild.roles, id=bot_configs.gender('male'))
                     female = discord.utils.get(interaction.guild.roles, id=bot_configs.gender('female'))
-                    #others = discord.utils.get(interaction.guild.roles, id=1053923859105067019)
 
                     channel_male = self.bot.get_channel(bot_configs.channel('male_channel'))
                     channel_female = self.bot.get_channel(bot_configs.channel('female_channel'))
@@ -472,9 +470,6 @@ class Profile(discord.ui.View):
                     embed.add_field(name="Hobbies ", value=f"{user_data['hobbies']}", inline=True)
                     embed.add_field(name="About me ", value=f"{user_data['biography']}", inline=False)
                     embed.set_footer(text=f"{interaction.guild.name}", icon_url=interaction.guild.icon.url)
-
-                    #await channel.send(f"{interaction.user.mention}")
-                    #await channel.send(embed=embed)
                     
                     if male in interaction.user.roles:
                         await channel_male.send(f"{user.mention}")
@@ -511,7 +506,6 @@ class Profile(discord.ui.View):
 
 
     # PREVIEW BUTTON
-    #@commands.cooldown(1, 259200, commands.BucketType.user) #next 3days 
     @discord.ui.button(label='Preview', style=discord.ButtonStyle.grey, emoji='🔎' ,custom_id='preview' , row=1)
     async def preview(self, interaction: discord.Interaction, button: discord.ui.Button):
         
