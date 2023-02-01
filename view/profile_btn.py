@@ -430,12 +430,12 @@ class Profile(discord.ui.View):
                 else:
                     try:
                         await interaction.response.send_message("Profile Bumped", ephemeral=True)
-                        await asyncio.sleep(60)
+                        await asyncio.sleep(30)
                         await interaction.delete_original_response()
 
                     except:
                         await interaction.response.send_message("Something went wrong \n **Try Again or Contact The Dev**", ephemeral=True)
-                        await asyncio.sleep(50)                        
+                        await asyncio.sleep(30)                        
                         await interaction.delete_original_response()
 
                     user_d = user_in_db.get_user(interaction.user.id)
