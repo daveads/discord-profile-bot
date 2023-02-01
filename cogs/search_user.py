@@ -26,7 +26,7 @@ class search(commands.Cog):
             user = await self.bot.fetch_user(convert_id)
 
             if user_in_db.get_user(user.id):
-                user_d = user_in_db.get_user(interaction.user.id)
+                user_d = user_in_db.get_user(user.id)
                 user_data ={}
           
                 for i in range(len(self.dic_key)):
