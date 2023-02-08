@@ -190,7 +190,7 @@ class Profile(discord.ui.View):
 
             except:
                 await interaction.response.send_message("You Have a Profile Created Already", ephemeral=True)
-                await asyncio.sleep(60)
+                await asyncio.sleep(30)
                 await interaction.delete_original_response()
 
                          
@@ -250,9 +250,15 @@ class Profile(discord.ui.View):
             embed.add_field(name="(4) HOBBIES", value=f"{user_data['hobbies']}",inline=True)
             embed.add_field(name="(5) BIOGRAPHY", value=f"{user_data['biography']}", inline=True)
             embed.set_footer(text="profile can only be edited once a week",icon_url=interaction.user.avatar)
-            await user.send(embed=embed)
-
             
+            try:
+                await user.send(embed=embed)
+
+            except:
+
+                await interaction.response.send_message(embed=embed, ephemeral=True)
+                # Testing a scenario
+
             #NOT SO GOOD 
             msg_timer=60
             while(True):
@@ -557,7 +563,7 @@ class Profile(discord.ui.View):
 
 
 
-    # CREATE BUTTON 
+    # UPLOAD BUTTON 
     @discord.ui.button(label='Upload', style=discord.ButtonStyle.blurple, emoji='📁', disabled=True, custom_id='upload', row=1)
     async def upload(self, interaction: discord.Interaction, button: discord.ui.Button):
 
