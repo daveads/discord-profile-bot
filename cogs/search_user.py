@@ -16,13 +16,12 @@ class search(commands.Cog):
     pass
     # /slash command
 
-    #@commands.cooldown(1,120,commands.BucketType.guild)
-    
+
     def cooldown_for_everyone_but_me(interaction: discord.Interaction) -> Optional[app_commands.Cooldown]:
         if interaction.user.id == 840152379122384896:
             return None
         
-        return app_commands.Cooldown(1, 120)
+        return app_commands.Cooldown(1, 3600) #1 hour 
 
 
     @app_commands.checks.dynamic_cooldown(cooldown_for_everyone_but_me)
