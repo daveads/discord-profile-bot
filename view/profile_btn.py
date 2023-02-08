@@ -136,7 +136,7 @@ class Profile(discord.ui.View):
         self.bot = bot
         self.dic_key = ['id','username','username_id','name','location','looking_for','hobbies','biography','premium_day','profile_date']
         self.seconds = 259200 #3days
-        self.cooldown = commands.CooldownMapping.from_cooldown(1, self.seconds, commands.BucketType.member)
+        self.cooldown = commands.CooldownMapping.from_cooldown(2, self.seconds, commands.BucketType.member)
         
 
         
@@ -396,7 +396,8 @@ class Profile(discord.ui.View):
         datingstatus_get = await get_element(datingstatus_check)
         dmstatus_get = await get_element(dmstatus_check)
         height_get = await get_element(height_check)
-
+        
+        interaction.message.author = interaction.user
         bucket = self.cooldown.get_bucket(interaction.message)
         retry = bucket.update_rate_limit()
         
@@ -407,14 +408,14 @@ class Profile(discord.ui.View):
         user = await self.bot.fetch_user(interaction.user.id)
         role = discord.utils.get(interaction.guild.roles, id=bot_configs.role('premium_role_id')) 
         
-
         if role in interaction.user.roles:
             await user.send("premium user should use the !bumpp commands")
             bucket.reset()
 
+        
         else:
-
-            if user_in_db.get_user(interaction.user.id):
+           
+            if user_in_db.get_user(user.id):
          
                 if retry:
                     second = round(retry, 1)
@@ -426,19 +427,18 @@ class Profile(discord.ui.View):
 
                     await interaction.response.send_message(f"try again in {round(day)} Days {hours} hours {minutes} minutes, {second} seconds", ephemeral=True)        
 
-            
+        
+
                 else:
                     try:
-                        await interaction.response.send_message("Profile Bumped", ephemeral=True)
-                        await asyncio.sleep(30)
-                        await interaction.delete_original_response()
+                        await interaction.response.defer()
 
                     except:
                         await interaction.response.send_message("Something went wrong \n **Try Again or Contact The Dev**", ephemeral=True)
-                        await asyncio.sleep(30)                        
+                        await asyncio.sleep(60)
                         await interaction.delete_original_response()
 
-                    user_d = user_in_db.get_user(interaction.user.id)
+                    user_d = user_in_db.get_user(user.id)
                     user_data ={}
                     for i in range(len(self.dic_key)):
                         user_data[self.dic_key[i]] = user_d[i] 
@@ -454,6 +454,7 @@ class Profile(discord.ui.View):
                     """
                     Embed 
                     """
+
                     embed=discord.Embed(title=f"User: <@{user.id}>", url="", description="", color=discord.Color.red())
                     embed.set_thumbnail(url=user.avatar)
                     embed.set_author(name=f"{user}", icon_url=(user.avatar))
@@ -470,7 +471,8 @@ class Profile(discord.ui.View):
                     embed.add_field(name="Hobbies ", value=f"{user_data['hobbies']}", inline=True)
                     embed.add_field(name="About me ", value=f"{user_data['biography']}", inline=False)
                     embed.set_footer(text=f"{interaction.guild.name}", icon_url=interaction.guild.icon.url)
-                    
+
+
                     if male in interaction.user.roles:
                         await channel_male.send(f"{user.mention}")
                         await channel_male.send(embed=embed)
@@ -518,7 +520,7 @@ class Profile(discord.ui.View):
             for i in range(len(self.dic_key)):
                 user_data[self.dic_key[i]] = user_d[i]
 
-            #print(user_data)
+           
             embed=discord.Embed(title=f"PROFILE `{user_data['username']}` ", description="Your current profile details", color=discord.Color.blue())
             embed.set_thumbnail(url=user.avatar)
             embed.add_field(name="NAME ", value=f"{user_data['name']}", inline=True)
