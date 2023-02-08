@@ -19,7 +19,7 @@ class search(commands.Cog):
     #@commands.cooldown(1,120,commands.BucketType.guild)
     
     def cooldown_for_everyone_but_me(interaction: discord.Interaction) -> Optional[app_commands.Cooldown]:
-        if interaction.user.id == 80088516616269824:
+        if interaction.user.id == 840152379122384896:
             return None
         
         return app_commands.Cooldown(1, 120)
