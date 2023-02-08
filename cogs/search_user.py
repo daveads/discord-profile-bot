@@ -1,3 +1,4 @@
+from typing import Optional
 from discord.ext import commands
 import discord
 import asyncio
@@ -15,6 +16,16 @@ class search(commands.Cog):
     pass
     # /slash command
 
+    #@commands.cooldown(1,120,commands.BucketType.guild)
+    
+    def cooldown_for_everyone_but_me(interaction: discord.Interaction) -> Optional[app_commands.Cooldown]:
+        if interaction.user.id == 80088516616269824:
+            return None
+        
+        return app_commands.Cooldown(1, 120)
+
+
+    @app_commands.checks.dynamic_cooldown(cooldown_for_everyone_but_me)
     @app_commands.describe(first_value='Input user id',)
     @app_commands.command(name="find", description="search for a user profile")
     async def find(self, interaction: discord.Interaction, first_value : str):
@@ -55,6 +66,14 @@ class search(commands.Cog):
 
         except:
             await interaction.response.send_message("That's not a user id")
+
+    @find.error
+    async def on_test_error(self, interaction: discord.Interaction, error: app_commands.AppCommandError):
+        if isinstance(error, app_commands.CommandOnCooldown):
+            await interaction.response.send_message(str(error), ephemeral=True)
+
+
+
 
 async def setup(bot):
     await bot.add_cog(search(bot))
