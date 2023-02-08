@@ -135,8 +135,8 @@ class Profile(discord.ui.View):
         super().__init__(timeout=None)
         self.bot = bot
         self.dic_key = ['id','username','username_id','name','location','looking_for','hobbies','biography','premium_day','profile_date']
-        self.seconds = 259200 #3days
-        self.cooldown = commands.CooldownMapping.from_cooldown(2, self.seconds, commands.BucketType.member)
+        self.seconds =  43200 # 12 hours      '''259200 #3days'''
+        self.cooldown = commands.CooldownMapping.from_cooldown(1, self.seconds, commands.BucketType.member)
         
 
         
