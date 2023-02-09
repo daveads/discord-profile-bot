@@ -112,6 +112,11 @@ async def bump(bot, cooldown, interaction , button):
                     interaction.guild.roles, id=bot_configs.gender("female")
                 )
 
+                # verification tag
+                age_verf = discord.utils.get(interaction.guild.roles, id=bot_configs.age("age_verf"))
+                selfie_verf = discord.utils.get(interaction.guild.roles, id=bot_configs.role("selfie_verf"))
+
+
                 channel_male = bot.get_channel(bot_configs.channel("male_channel"))
                 channel_female = bot.get_channel(
                     bot_configs.channel("female_channel")
@@ -164,8 +169,31 @@ async def bump(bot, cooldown, interaction , button):
                     value=f"{user_data['looking_for']}",
                     inline=True,
                 )
+
+
+                # verification level
+                if age_verf in interaction.user.roles and selfie_verf in interaction.user.roles:
+                    
+                    embed.add_field(
+                    name="Verification level",
+                    value=f"Selfie & Age verified",
+                    inline=True,
+                )
+
+                elif age_verf in interaction.user.roles:
+                    embed.add_field( name="Verification level", value=f"Age verified", inline=True,)
+
+                elif selfie_verf in interaction.user.roles:
+                    embed.add_field( name="Verification level", value=f"Selfie verified", inline=True,)
+
+                else:
+                    embed.add_field( name="Verification level", value=f"Not verified", inline=True,)
+
+                ############
+
+
                 embed.add_field(
-                    name="Hobbies ", value=f"{user_data['hobbies']}", inline=True
+                    name="Hobbies ", value=f"{user_data['hobbies']}", inline=False
                 )
                 embed.add_field(
                     name="About me ", value=f"{user_data['biography']}", inline=False
