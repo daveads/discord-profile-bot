@@ -21,6 +21,7 @@ bot_configs = BotConfigs()
 from view.btns_callback.create import create
 from view.btns_callback.edit import edit
 from view.btns_callback.preview import preview
+from view.btns_callback.bump import bump
 
 async def get_element(array):
     element = None
@@ -160,201 +161,14 @@ class Profile(discord.ui.View):
     # BUMP BUTTON 
     @discord.ui.button(label='Bump', style=discord.ButtonStyle.blurple, emoji='📢', custom_id='bump', row=1)
     async def bump(self, interaction: discord.Interaction, button: discord.ui.Button):
-
-        # idk
-        self.user = await interaction.guild.fetch_member(interaction.user.id)
-
-
-        #Needed roles
-        gender_roles = await gender(interaction)
-        
-        age_roles = await age(interaction)
-
-        orientation_roles = await orientation(interaction)
-
-        datingstatus_roles = await datingstatus(interaction)
-
-        dmstatus_roles = await dmstatus(interaction)
-
-        height_roles = await height(interaction)
-
-
-        import numpy as np
-
-        # CHECKS IF ROLE is in User object
-        gender_check = np.isin(gender_roles, self.user.roles)
-        age_check = np.isin(age_roles, self.user.roles)
-        orientation_check = np.isin(orientation_roles, self.user.roles)
-        datingstatus_check = np.isin(datingstatus_roles, self.user.roles)
-        dmstatus_check = np.isin(dmstatus_roles, self.user.roles)
-        height_check = np.isin(height_roles, self.user.roles)
-        
-        # array index
-        age_get = await get_element(age_check)
-        gender_get = await get_element(gender_check)
-        orientation_get = await get_element(orientation_check)
-        datingstatus_get = await get_element(datingstatus_check)
-        dmstatus_get = await get_element(dmstatus_check)
-        height_get = await get_element(height_check)
-        
-        interaction.message.author = interaction.user
-        bucket = self.cooldown.get_bucket(interaction.message)
-        retry = bucket.update_rate_limit()
-        
-        
-        #minutes = str(retry % 60)
-        # , {minutes} minutes {round(retry, 1)} seconds
-
-        user = await self.bot.fetch_user(interaction.user.id)
-        role = discord.utils.get(interaction.guild.roles, id=bot_configs.role('premium_role_id')) 
-        
-        if role in interaction.user.roles:
-            await user.send("premium user should use the !bumpp commands")
-            bucket.reset()
-
-        
-        else:
-           
-            if user_in_db.get_user(user.id):
-         
-                if retry:
-                    second = round(retry, 1)
-                    hours = (retry // 3600)
-                    minutes = (hours * 60)
-
-                    day = hours / 24
-            
-
-                    await interaction.response.send_message(f"try again in {round(day)} Days {hours} hours {minutes} minutes, {second} seconds", ephemeral=True)        
-
-        
-
-                else:
-                    try:
-                        await interaction.response.defer()
-
-                    except:
-                        await interaction.response.send_message("Something went wrong \n **Try Again or Contact The Dev**", ephemeral=True)
-                        await asyncio.sleep(60)
-                        await interaction.delete_original_response()
-
-                    user_d = user_in_db.get_user(user.id)
-                    user_data ={}
-                    for i in range(len(self.dic_key)):
-                        user_data[self.dic_key[i]] = user_d[i] 
-
-                    
-                    male = discord.utils.get(interaction.guild.roles, id=bot_configs.gender('male'))
-                    female = discord.utils.get(interaction.guild.roles, id=bot_configs.gender('female'))
-
-                    channel_male = self.bot.get_channel(bot_configs.channel('male_channel'))
-                    channel_female = self.bot.get_channel(bot_configs.channel('female_channel'))
-                    channel_other = self.bot.get_channel(bot_configs.channel('others_channel'))
-
-                    """
-                    Embed 
-                    """
-
-                    embed=discord.Embed(title=f"User: <@{user.id}>", url="", description="", color=discord.Color.red())
-                    embed.set_thumbnail(url=user.avatar)
-                    embed.set_author(name=f"{user}", icon_url=(user.avatar))
-                    embed.add_field(name="Name", value=f"{user_data['name']}", inline=True)
-                    embed.add_field(name="Gender", value=f"{gender_roles[gender_get]}", inline=True)
-                    embed.add_field(name="Age", value=f"{age_roles[age_get]}", inline=True)
-                    embed.add_field(name="Orientation", value=f"{orientation_roles[orientation_get]}", inline=True)
-                    embed.add_field(name="Location", value=f"{user_data['location']}", inline=True)
-                    #embed.add_field(name="Verification level", value=f"Not verified", inline=True)
-                    embed.add_field(name="Height", value=f"{height_roles[height_get]}", inline=True)
-                    embed.add_field(name="DMs status", value=f"{dmstatus_roles[dmstatus_get]}", inline=True)
-                    embed.add_field(name="dating status", value=f"{datingstatus_roles[datingstatus_get]}", inline=True)
-                    embed.add_field(name="Looking for ", value=f"{user_data['looking_for']}", inline=True)
-                    embed.add_field(name="Hobbies ", value=f"{user_data['hobbies']}", inline=True)
-                    embed.add_field(name="About me ", value=f"{user_data['biography']}", inline=False)
-                    embed.set_footer(text=f"{interaction.guild.name}", icon_url=interaction.guild.icon.url)
-
-
-                    if male in interaction.user.roles:
-                        await channel_male.send(f"{user.mention}")
-                        await channel_male.send(embed=embed)
-
-                    elif female in interaction.user.roles:
-                        await channel_female.send(f"{user.mention}")
-                        await channel_female.send(embed=embed)
-
-                    else:
-                        await channel_other.send(f"{user.mention}")
-                        await channel_other.send(embed=embed)
-
-
-
-
-            else:
-                try:
-                    await user_embed.user_reply(user,"You Don't Have a Profile \n Click the `CREATE` button to create a profile")
-                    await interaction.response.defer()
-                    bucket.reset()
-
-
-                except:
-                    await interaction.response.send_message("You Don't Have a Profile \n Click the `CREATE` button to create a profile", ephemeral=True)
-                    await asyncio.sleep(60)
-                    await interaction.delete_original_response()
-                    bucket.reset()
-
-                
-
-
+        await bump(self.bot, self.cooldown, interaction, button)
 
 
 
     # PREVIEW BUTTON
     @discord.ui.button(label='Preview', style=discord.ButtonStyle.grey, emoji='🔎' ,custom_id='preview' , row=1)
     async def preview(self, interaction: discord.Interaction, button: discord.ui.Button):
-        
-        user = await self.bot.fetch_user(interaction.user.id)
-
-        if user_in_db.get_user(interaction.user.id):
-
-            user_d = user_in_db.get_user(interaction.user.id)
-            user_data ={}
-            for i in range(len(self.dic_key)):
-                user_data[self.dic_key[i]] = user_d[i]
-
-           
-            embed=discord.Embed(title=f"PROFILE `{user_data['username']}` ", description="Your current profile details", color=discord.Color.blue())
-            embed.set_thumbnail(url=user.avatar)
-            embed.add_field(name="NAME ", value=f"{user_data['name']}", inline=True)
-            embed.add_field(name="LOCATION", value=f"{user_data['location']}", inline=True)
-            embed.add_field(name="LOOKING FOR", value=f"{user_data['looking_for']}", inline=True)
-            embed.add_field(name="HOBBIES", value=f"{user_data['hobbies']}",inline=True)
-            embed.add_field(name="BIOGRAPHY", value=f"{user_data['biography']}", inline=True)
-            embed.set_footer(text="profile can only be edited once a week",icon_url=user.avatar)
-
-            try:
-                await user.send(embed=embed)
-                await interaction.response.defer()
-            
-            except:
-                await interaction.response.send_message(embed=embed, ephemeral=True)
-                await asyncio.sleep(60)
-                await interaction.delete_original_response()
-
-
-
-
-        else:
-
-            try:
-                await user_embed.user_reply(user,"YOU DONT HAVE A PROFILE YET")
-                await interaction.response.defer()
-                
-
-            except:
-                await interaction.response.send_message("YOU DONT HAVE A PROFILE YET", ephemeral=True)
-                await asyncio.sleep(60)
-                await interaction.delete_original_response()
-                
-
+        await preview(self.bot, interaction, button)
 
 
     # UPLOAD BUTTON 
