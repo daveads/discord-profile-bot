@@ -51,8 +51,9 @@ async def create(bot, interaction, button):
     if user_in_db.get_user(interaction.user.id):
 
         try:
-            await user_embed.user_reply(user,"You Have a Profile Created Already")
             await interaction.response.defer()
+            await user_embed.user_reply(user,"You Have a Profile Created Already")
+            
 
         except:
             await interaction.response.send_message("You Have a Profile Created Already", ephemeral=True)
@@ -69,8 +70,9 @@ async def create(bot, interaction, button):
         else:
             
             try:
-                await user_embed.user_reply(user,"You Are Missing Some Roles")
                 await interaction.response.defer()
+                await user_embed.user_reply(user,"You Are Missing Some Roles")
+                
 
             except:
                 await interaction.response.send_message("You Are Missing Some Roles", ephemeral=True)
