@@ -2,7 +2,7 @@ from discord.ext import commands
 import discord
 from discord import app_commands 
 
-from view.announce_modal import Announce
+from view.modal.announce_modal import Announce
 class announce(commands.Cog):
 
     def __init__(self, bot):

@@ -1,5 +1,4 @@
-from email.errors import MultipartInvariantViolationDefect
-from view.profile_modal import Creatprofile
+from view.modal.profile_modal import Creatprofile
 import discord
 from model import profile
 from model import queries
