@@ -143,7 +143,7 @@ class Profile(discord.ui.View):
         self.dic_key = ['id','username','username_id','name','location','looking_for','hobbies','biography','premium_day','profile_date']
         self.seconds =  43200 # 12 hours      '''259200 #3days'''
         self.cooldown = commands.CooldownMapping.from_cooldown(1, self.seconds, commands.BucketType.member)
-        
+        self.cooldownEdit = commands.CooldownMapping.from_cooldown(1, 259200, commands.BucketType.member) # '''259200 #3days'''
 
         
     # CREATE BUTTON 
@@ -155,7 +155,7 @@ class Profile(discord.ui.View):
     # EDIT BUTTON
     @discord.ui.button(label='Edit', style=discord.ButtonStyle.grey, emoji='📝' ,custom_id='edit', row=1)
     async def edit(self, interaction: discord.Interaction, button: discord.ui.Button):
-       await edit(self.bot, interaction, button)
+       await edit(self.bot, self.cooldownEdit, interaction, button)
 
 
     # BUMP BUTTON 
