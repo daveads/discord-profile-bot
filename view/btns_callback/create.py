@@ -3,7 +3,7 @@ import asyncio
 from core import embed
 from model import queries
 from view.modal.profile_modal import Creatprofile
-from view.btns.funcs import gender, age, orientation, datingstatus, dmstatus, height
+from view.btns_callback.funcs import gender, age, orientation, datingstatus, dmstatus, height
 
 # Class initialized
 user_in_db = queries.PROFILEque()

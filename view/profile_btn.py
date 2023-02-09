@@ -16,6 +16,12 @@ user_embed = embed.Embed()
 from core.config_parser import BotConfigs
 bot_configs = BotConfigs()
 
+
+#button callbacks
+from view.btns_callback.create import create
+from view.btns_callback.edit import edit
+from view.btns_callback.preview import preview
+
 async def get_element(array):
     element = None
     for i in range(len(array)):
@@ -142,224 +148,13 @@ class Profile(discord.ui.View):
     # CREATE BUTTON 
     @discord.ui.button(label='Create', style=discord.ButtonStyle.green, emoji='✅', custom_id='create', row=1)
     async def create(self, interaction: discord.Interaction, button: discord.ui.Button):
-        
-        # gender, age, orientation, datingstatus, dmstatus, height
-        
-        #print(f'user profile id {interaction.user.id}') 
-        user = await self.bot.fetch_user(interaction.user.id)
-
-        
-        self.user = await interaction.guild.fetch_member(interaction.user.id)
-
-
-        #Needed roles
-        gender_roles = await gender(interaction)
-        age_roles = await age(interaction)
-        orientation_roles = await orientation(interaction)
-        datingstatus_roles = await datingstatus(interaction)
-        dmstatus_roles = await dmstatus(interaction)
-        height_roles = await height(interaction)
-        import numpy as np
-
-        # CHECKS IF ROLE is in User object
-        gender_check = np.isin(gender_roles, self.user.roles) 
-        age_check = np.isin(age_roles, self.user.roles)
-        orientation_check = np.isin(orientation_roles, self.user.roles)
-        datingstatus_check = np.isin(datingstatus_roles, self.user.roles)
-        dmstatus_check = np.isin(dmstatus_roles, self.user.roles)
-        height_check = np.isin(height_roles, self.user.roles)
-
-        needrole = [age_check, dmstatus_check, gender_check, height_check, orientation_check, datingstatus_check]
-        
-        def check_roles(array):
-            dm = []
-
-            #for i in range(5):
-            for j in array:
-                if True in j:
-                    dm.append(True)
-           
-            return dm
-
-        if user_in_db.get_user(interaction.user.id):
-
-            try:
-                    await user_embed.user_reply(user,"You Have a Profile Created Already")
-                    await interaction.response.defer()
-
-            except:
-                await interaction.response.send_message("You Have a Profile Created Already", ephemeral=True)
-                await asyncio.sleep(30)
-                await interaction.delete_original_response()
-
-                         
-        else:
-
-            if len(check_roles(needrole)) == 6:
-                await interaction.response.send_modal(Creatprofile())
-
-            else:
-                #await interaction.response.defer()
-
-                try:
-                
-                    await user_embed.user_reply(user,"You Are Missing Some Roles")
-                    await interaction.response.defer()
-
-                except:
-
-                    await interaction.response.send_message("You Are Missing Some Roles", ephemeral=True)
-                    await asyncio.sleep(60)
-                    await interaction.delete_original_response()
-                
-
-
-                    
-        
-        
-
-
-
-
+        await create(self.bot, interaction, button)        
 
 
     # EDIT BUTTON
     @discord.ui.button(label='Edit', style=discord.ButtonStyle.grey, emoji='📝' ,custom_id='edit', row=1)
     async def edit(self, interaction: discord.Interaction, button: discord.ui.Button):
-        
-      
-        user = await self.bot.fetch_user(interaction.user.id)  
-        
-        if user_in_db.get_user(interaction.user.id):
-            await interaction.response.defer()
-
-            user_d = user_in_db.get_user(interaction.user.id)
-            user_data ={}
-          
-            for i in range(len(self.dic_key)):
-                user_data[self.dic_key[i]] = user_d[i]
-
-
-            embed=discord.Embed(title=f"PROFILE `{interaction.user}`",  description="Type in a number to edit a particular field \n *Default* `Timeout: 1mins` ", color=discord.Color.blue())
-                #embed.set_image(url=(author.avatar_url))
-            embed.set_thumbnail(url=interaction.user.avatar)
-            embed.add_field(name="(1) NAME ", value=f"{user_data['name']}", inline=True)
-            embed.add_field(name="(2) LOCATION", value=f"{user_data['location']}", inline=True)
-            embed.add_field(name="(3) LOOKING FOR", value=f"{user_data['looking_for']}", inline=True)
-            embed.add_field(name="(4) HOBBIES", value=f"{user_data['hobbies']}",inline=True)
-            embed.add_field(name="(5) BIOGRAPHY", value=f"{user_data['biography']}", inline=True)
-            embed.set_footer(text="profile can only be edited once a week",icon_url=interaction.user.avatar)
-            
-            try:
-                await user.send(embed=embed)
-
-            except:
-
-                await interaction.response.send_message(embed=embed, ephemeral=True)
-                # Testing a scenario
-
-            #NOT SO GOOD 
-            msg_timer=60
-            while(True):
-                
-                try:
-                    def check(msg):
-                        return msg.author == user
-                      
-                    msg = await self.bot.wait_for("message", check=check, timeout=msg_timer)       
-                          
-                    #name
-                    if msg.content == '1':
-                        
-                        await user.send("what's your name ?")
-                        await asyncio.sleep(2)
-                        msg1 = await self.bot.wait_for("message", check=check, timeout=msg_timer)
-                            
-                        if msg1.content:
-                            await user_embed.user_reply(user,"Name field updated")
-                            user_in_db.update('name', msg1.content, user.id)
-                            user_in_db.con.commit()
-                        else:
-                            await user_embed.user_reply(user,"field can not be empty")
-                    
-                    
-                    #location
-                    elif msg.content == '2':
-                        await user.send("where are you from ?")
-                        await asyncio.sleep(2)
-                        msg1 = await self.bot.wait_for("message", check=check, timeout=msg_timer)
-                            
-                        if msg1.content:
-                            await user_embed.user_reply(user,"Location field updated")
-                            user_in_db.update('location', msg1.content, user.id)
-                            user_in_db.con.commit()
-                        else:
-                            await user_embed.user_reply(user,"field can not be empty")
-
-
-                    
-                    #looking_for
-                    elif msg.content ==  '3':
-                        await user.send("What are you looking for? Type None if you don't want to share!")
-                        await asyncio.sleep(2)
-                        msg1 = await self.bot.wait_for("message", check=check, timeout=msg_timer)
-                        if msg1.content:
-                            await user_embed.user_reply(user,"Looking_for field updated")
-                            user_in_db.update('looking_for', msg1.content, user.id)
-                            user_in_db.con.commit()
-                        
-                        else:
-                            await user_embed.user_reply(user,"field can not be empty")
-
-                    #hobbies
-                    elif msg.content ==  '4':
-                        await user.send("What are your hobbies?")
-                        await asyncio.sleep(2)
-                        if msg1.content:
-                            msg1 = await self.bot.wait_for("message", check=check, timeout=msg_timer)
-                            user_in_db.update('hobbies', msg1.content, user.id)
-                            user_in_db.con.commit()
-                        else:
-                            await user_embed.user_reply(user,"field can not be empty")
-
-                    #biography
-                    elif msg.content ==  '5':
-                        await user.send("Please write a biography, under 200 characters!")
-                        await asyncio.sleep(2)
-                        msg1 = await self.bot.wait_for("message", check=check, timeout=msg_timer)
-                        if msg1.content:
-                            await user_embed.user_reply(user,"Biography field updated")
-                            user_in_db.update('biography', msg1.content, user.id)
-                            user_in_db.con.commit()
-                        else:
-                            await user_embed.user_reply(user,"field can not be empty")
-
-
-
-                    else:
-                        await user.send("value can only in numbers above")
-          
-                except asyncio.TimeoutError:
-                    break
-                            
-
-        else:
-            try:
-                await user_embed.user_reply(user,"YOU HAVE NO PROFILE TO EDIT")
-                await interaction.response.defer()
-
-            except:
-                await interaction.response.send_message("YOU HAVE NO PROFILE TO EDIT", ephemeral=True)
-                await asyncio.sleep(60)
-                await interaction.delete_original_response()
-    
-
-
-
-
-
-
-
+       await edit(self.bot, interaction, button)
 
 
     # BUMP BUTTON 
