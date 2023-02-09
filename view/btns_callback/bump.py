@@ -73,20 +73,16 @@ async def bump(bot, cooldown, interaction , button):
 
     if role in interaction.user.roles:
         await user.send("premium user should use the !bumpp commands")
-        print("premium")
         bucket.reset()
 
     else:
         if user_in_db.get_user(user.id):
-            print("retry")
             if retry:
-                print("1")
                 second = round(retry, 1)
                 hours = retry // 3600
                 minutes = hours * 60
 
                 day = hours / 24
-                print("check timer")
                 await interaction.response.send_message(
                     f"try again in {round(day)} Days {hours} hours {minutes} minutes, {second} seconds",
                     ephemeral=True,
