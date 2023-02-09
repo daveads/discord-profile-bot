@@ -26,6 +26,11 @@ user_embed = embed.Embed()
 
 async def bump(bot, cooldown, interaction , button):
 
+    #cooldown shit
+    interaction.message.author = interaction.user
+    bucket = cooldown.get_bucket(interaction.message)
+    retry = bucket.update_rate_limit()
+
     dic_key = ['id','username','username_id','name','location','looking_for','hobbies','biography','premium_day','profile_date']
 
     # idk
@@ -57,10 +62,7 @@ async def bump(bot, cooldown, interaction , button):
     dmstatus_get = await get_element(dmstatus_check)
     height_get = await get_element(height_check)
 
-    interaction.message.author = interaction.user
-    bucket = cooldown.get_bucket(interaction.message)
-    retry = bucket.update_rate_limit()
-
+    
     # minutes = str(retry % 60)
     # , {minutes} minutes {round(retry, 1)} seconds
 
