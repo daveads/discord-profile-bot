@@ -1,4 +1,3 @@
-import discord
 import asyncio
 
 from core import embed
@@ -9,18 +8,13 @@ from view.btns.funcs import gender, age, orientation, datingstatus, dmstatus, he
 # Class initialized
 user_in_db = queries.PROFILEque()
 user_embed = embed.Embed()
-#data = configs.Datajson()
 
 
-async def create(bot, interaction: discord.Interaction, button: discord.ui.Button):
+async def create(bot, interaction, button):
     # gender, age, orientation, datingstatus, dmstatus, height
-        
-    #print(f'user profile id {interaction.user.id}')
-
 
     # missing some needed objests from the libary 
     user = await bot.fetch_user(interaction.user.id)
-
 
     userG = await interaction.guild.fetch_member(interaction.user.id)
 
@@ -48,7 +42,6 @@ async def create(bot, interaction: discord.Interaction, button: discord.ui.Butto
     def check_roles(array):
         dm = []
 
-        #for i in range(5):
         for j in array:
             if True in j:
                 dm.append(True)
@@ -75,7 +68,6 @@ async def create(bot, interaction: discord.Interaction, button: discord.ui.Butto
 
         else:
             
-            #await interaction.response.defer()
             try:
                 await user_embed.user_reply(user,"You Are Missing Some Roles")
                 await interaction.response.defer()
