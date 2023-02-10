@@ -66,7 +66,7 @@ async def profile_embed(user, interaction):
     """
 
     embed = discord.Embed(
-        title=f"User: <@{user.id}>",
+        title=f"PROFILE `{user_data['username']}` ",
         url="",
         description="",
         color=discord.Color.red(),
