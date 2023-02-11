@@ -56,7 +56,3 @@ class search(commands.Cog):
 
 async def setup(bot):
     await bot.add_cog(search(bot))
-
-
-
-# age, verified level, gender 
