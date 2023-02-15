@@ -23,16 +23,12 @@ class search(commands.Cog):
 
 
     @app_commands.checks.dynamic_cooldown(cooldown_for_everyone_but_me)
-    @app_commands.describe(userid='Input user id',)
-    @app_commands.command(name="find", description="search for a user profile")
-    async def find(self, interaction: discord.Interaction, userid : str):
-        """ /find """
+    @app_commands.command(name="search", description="search for a user profile")
+    async def find(self, interaction: discord.Interaction, user : discord.Member ):
+        """ /search """
 
         try:
-            convert_id = int(userid)
         
-            user = await self.bot.fetch_user(convert_id)
-
             if user_in_db.get_user(user.id):
               
                 profile_embed_data = await profile_embed(user, interaction)
@@ -45,6 +41,7 @@ class search(commands.Cog):
 
         except:
             await interaction.response.send_message("That's not a user id")
+
 
     @find.error
     async def on_test_error(self, interaction: discord.Interaction, error: app_commands.AppCommandError):
