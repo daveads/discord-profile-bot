@@ -27,3 +27,14 @@ class PROFILEque():
 
         except sqlite3.Error as error:
             print(f"unable to update user {table} >>", error)
+
+
+    def total_created_profile(self):
+
+        try:
+            count = self.cur.execute("SELECT * FROM profile_detail WHERE ROWID IN ( SELECT max( ROWID ) FROM profile_detail );")
+            
+            return count
+
+        except sqlite3.Error as error:
+            print("error error queries >>", error)
