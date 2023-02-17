@@ -70,7 +70,7 @@ async def edit(bot, cooldown, interaction, button):
                 try:
                     
                     def check(msg):
-                        return msg.author == user
+                        return msg.author == user and not msg.guild
                             
                     msg = await bot.wait_for("message", check=check, timeout=msg_timer)       
                                 
