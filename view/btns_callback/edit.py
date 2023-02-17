@@ -93,11 +93,11 @@ async def edit(bot, cooldown, interaction, button):
                     elif msg.content == '2':
                         await user.send("where are you from ?")
                         await asyncio.sleep(2)
-                        msg1 = await bot.wait_for("message", check=check, timeout=msg_timer)
+                        msg2 = await bot.wait_for("message", check=check, timeout=msg_timer)
                                 
-                        if msg1.content:
+                        if msg2.content:
                             await user_embed.user_reply(user,"Location field updated")
-                            user_in_db.update('location', msg1.content, user.id)
+                            user_in_db.update('location', msg2.content, user.id)
                             user_in_db.con.commit()
                         
                         else:
@@ -109,11 +109,11 @@ async def edit(bot, cooldown, interaction, button):
                     elif msg.content ==  '3':
                         await user.send("What are you looking for? Type None if you don't want to share!")
                         await asyncio.sleep(2)
-                        msg1 = await bot.wait_for("message", check=check, timeout=msg_timer)
+                        msg3 = await bot.wait_for("message", check=check, timeout=msg_timer)
                         
-                        if msg1.content:
+                        if msg3.content:
                             await user_embed.user_reply(user,"Looking_for field updated")
-                            user_in_db.update('looking_for', msg1.content, user.id)
+                            user_in_db.update('looking_for', msg3.content, user.id)
                             user_in_db.con.commit()
                             
                         else:
@@ -123,11 +123,13 @@ async def edit(bot, cooldown, interaction, button):
                     elif msg.content ==  '4':
                         await user.send("What are your hobbies?")
                         await asyncio.sleep(2)
+                        msg4 = await bot.wait_for("message", check=check, timeout=msg_timer)
                             
-                        if msg1.content:
-                            msg1 = await bot.wait_for("message", check=check, timeout=msg_timer)
-                            user_in_db.update('hobbies', msg1.content, user.id)
+                        if msg4.content:
+                            await user_embed.user_reply(user,"hobbies field updated")
+                            user_in_db.update('hobbies', msg4.content, user.id)
                             user_in_db.con.commit()
+
                         else:
                             await user_embed.user_reply(user,"field can not be empty")
 
@@ -135,11 +137,11 @@ async def edit(bot, cooldown, interaction, button):
                     elif msg.content ==  '5':
                         await user.send("Please write a biography, under 200 characters!")
                         await asyncio.sleep(2)
-                        msg1 = await bot.wait_for("message", check=check, timeout=msg_timer)
+                        msg5 = await bot.wait_for("message", check=check, timeout=msg_timer)
                             
-                        if msg1.content:
+                        if msg5.content:
                             await user_embed.user_reply(user,"Biography field updated")
-                            user_in_db.update('biography', msg1.content, user.id)
+                            user_in_db.update('biography', msg5.content, user.id)
                             user_in_db.con.commit()
                             
                         else:
