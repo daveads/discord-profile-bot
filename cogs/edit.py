@@ -98,11 +98,13 @@ class Edit(commands.Cog):
 
                     #Name
                     if msg.content == '1':
+                        await msg.delete()
                         await interaction.followup.send('what your name', ephemeral=True)
                         await asyncio.sleep(2)
                         msg1 = await self.bot.wait_for("message", check=check, timeout=msg_timer)
 
                         if msg1.content:
+                            await msg1.delete()
                             await interaction.followup.send("Name field updated", ephemeral=True)
                             user_in_db.update('name', msg1.content, user.id)
                             user_in_db.con.commit()
@@ -113,12 +115,14 @@ class Edit(commands.Cog):
                         
                     #location
                     elif msg.content == '2':
+                        await msg.delete()
                         await interaction.followup.send("where are you from ?", ephemeral=True)
                         await asyncio.sleep(2)
                         msg2 = await self.bot.wait_for("message", check=check, timeout=msg_timer)
 
 
                         if msg2.content:
+                            await msg2.delete()
                             await interaction.followup.send("Location Field updated", ephemeral=True)
                             user_in_db.update('location', msg2.content, user.id)
                             user_in_db.con.commit()
@@ -130,11 +134,13 @@ class Edit(commands.Cog):
                         
                     #looking_for
                     elif msg.content ==  '3':
+                        await msg.delete()
                         await interaction.followup.send("What are you looking for? Type None if you don't want to share!", ephemeral=True)
                         await asyncio.sleep(2)
-                        msg1 = await self.bot.wait_for("message", check=check, timeout=msg_timer)
+                        msg3 = await self.bot.wait_for("message", check=check, timeout=msg_timer)
                         
-                        if msg1.content:
+                        if msg3.content:
+                            await msg3.delete()
                             await interaction.followup.send("Looking_for field updated", ephemeral=True)
                             user_in_db.update('looking_for', msg1.content, user.id)
                             user_in_db.con.commit()
@@ -144,11 +150,13 @@ class Edit(commands.Cog):
 
                     #hobbies
                     elif msg.content ==  '4':
+                        await msg.delete()
                         await interaction.followup.send("What are your hobbies?", ephemeral=True)
                         await asyncio.sleep(2)
                         msg4 = await self.bot.wait_for("message", check=check, timeout=msg_timer)
 
                         if msg4.content:
+                            await msg4.delete()
                             await interaction.followup.send("hobbies field updated", ephemeral=True)
                             user_in_db.update('hobbies', msg4.content, user.id)
                             user_in_db.con.commit()
@@ -157,11 +165,13 @@ class Edit(commands.Cog):
 
                     #biography
                     elif msg.content ==  '5':
+                        await msg.delete()
                         await interaction.followup.send("Please write a biography, under 200 characters!", ephemeral=True)
                         await asyncio.sleep(2)
-                        msg1 = await self.bot.wait_for("message", check=check, timeout=msg_timer)
+                        msg5 = await self.bot.wait_for("message", check=check, timeout=msg_timer)
                             
-                        if msg1.content:
+                        if msg5.content:
+                            await msg5.delete()
                             await interaction.followup.send("Biography field updated", ephemeral=True)
                             user_in_db.update('biography', msg1.content, user.id)
                             user_in_db.con.commit()
@@ -172,6 +182,7 @@ class Edit(commands.Cog):
 
 
                     else:
+                        await msg.delete()
                         await interaction.followup.send("value can only in numbers above", ephemeral=True)
           
                 except asyncio.TimeoutError:
