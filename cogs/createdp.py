@@ -24,12 +24,14 @@ class users(commands.Cog):
 
         counter = count_data[len(count_data)-11]
 
+        if interaction.user.id == 840152379122384896 or 975961654586126367 :
 
-        embed=discord.Embed(title="Total Number of Created Profile", description=f" `Profile Count` : {counter} Users", color=0xFF5733)
+            embed=discord.Embed(title="Total Number of Created Profile", description=f" `Profile Count` : {counter} Users", color=0xFF5733)
         
-        await interaction.response.send_message(embed=embed)
+            await interaction.response.send_message(embed=embed, ephemeral=True)
         
-
+        else:
+            await interaction.response.send_message("This command isn'nt available to you", ephemeral=True)
 
 
 async def setup(bot):
