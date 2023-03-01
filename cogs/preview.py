@@ -21,7 +21,7 @@ class Preview(commands.Cog):
     
 
     
-    @app_commands.command(name="preview", description="check your profile update")
+    @app_commands.command(name="preview", description="Preview your current profile!")
     async def cooldwn(self, interaction: discord.Interaction):
         """ /preview"""
 
