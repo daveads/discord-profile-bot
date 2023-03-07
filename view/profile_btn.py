@@ -18,6 +18,7 @@ from view.btns_callback.create import create
 from view.btns_callback.edit import edit
 from view.btns_callback.preview import preview
 from view.btns_callback.bump import bump
+from view.btns_callback.upload import upload
 
 
 class Profile(discord.ui.View):
@@ -57,10 +58,10 @@ class Profile(discord.ui.View):
 
 
     # UPLOAD BUTTON 
-    @discord.ui.button(label='Upload', style=discord.ButtonStyle.blurple, emoji='📁', disabled=True, custom_id='upload', row=1)
+    @discord.ui.button(label='Upload', style=discord.ButtonStyle.blurple, emoji='📁', disabled=False, custom_id='upload', row=1)
     async def upload(self, interaction: discord.Interaction, button: discord.ui.Button):
-
-        pass 
+        await upload(self.bot, interaction, button)
+        
 
 
 
