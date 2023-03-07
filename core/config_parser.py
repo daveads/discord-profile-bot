@@ -27,12 +27,15 @@ class BotConfigs:
             return self.data["user_roles"][role]
 
 
-    def channel(self, chn):
+    def admin(self, chn):
+        if  chn in self.data['admins']:
+            return self.data["admins"][chn]
 
+
+    def channel(self, chn):
         if chn in self.data['channels']:
             return self.data['channels'][chn]
 
- 
 
     def gender(self, gender):
         if gender in self.data["gender"]:
@@ -48,6 +51,7 @@ class BotConfigs:
         if orient in self.data["orientation"]:
             return self.data['orientation'][orient]
 
+
     def datingstatus(self, status):
         if status in self.data["datingstatus"]:
             return self.data["datingstatus"][status]
@@ -56,6 +60,7 @@ class BotConfigs:
     def dmstatus(self, status):
         if status in self.data['dmstatus']:
             return self.data['dmstatus'][status]
+
 
     def height(self, heig):
         if heig in self.data['height']:
