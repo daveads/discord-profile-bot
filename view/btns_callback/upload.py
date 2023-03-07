@@ -1,4 +1,6 @@
 import asyncio
+from concurrent.futures import ThreadPoolExecutor
+from timeit import Timer
 import discord
 from model import queries
 from core.config_parser import BotConfigs
@@ -14,13 +16,23 @@ user_embed = embed.Embed()
 
 
 async def user_reply(user, bot, chh, channel_created):
+
     def check(message):
         return message.author == user and bool(message.attachments)
            
            
     try:
-        resp = await bot.wait_for('message', check=check , timeout=65.0)
+        resp = await bot.wait_for('message', check=check , timeout=30.0)
 
+        d = str(resp.attachments[0])
+        format = ['png', 'jpg', 'jpeg', 'heic']
+
+        
+        if d[-3:] in format:     
+            return resp.attachments[0]
+
+        else:
+            return None
 
     except  asyncio.TimeoutError:
         await chh.send(f"Time out {user.mention}")
@@ -28,11 +40,7 @@ async def user_reply(user, bot, chh, channel_created):
         await channel_created.delete()
            
     
-    d = str(resp.attachments[0])
-    format = ['png', 'jpg', 'jpeg', 'heic']
-
-    if d[-3:] in format:     
-        return resp.attachments[0]
+    return False
 
 
 async def upload(bot, interaction , button):
@@ -78,8 +86,8 @@ async def upload(bot, interaction , button):
             user_in_chn = user_in_profchn(userverify_channels)
   
             if user_in_chn:
-                await interaction.response.send_message(content="You Have a Pending Profile Upload Channel")
-            
+                await interaction.response.send_message(content="You Have a Pending Profile Upload Channel", )
+                
             else:
                 await guild.create_text_channel(channel_name,  category=category, overwrites=overwrites)
                 channel_created = discord.utils.get(guild.channels, name=channel_name)
@@ -87,8 +95,8 @@ async def upload(bot, interaction , button):
                 view = View()
                 view.add_item(button)
 
-                await interaction.response.send_message(content="Selfie Upload channel created, click the button below to get to the channel!", view=view)
-        
+                await interaction.response.send_message(content="Selfie Upload channel created, click the button below to get to the channel!", view=view, ephemeral=True)
+
                 #THE CHANNEL
                 chh = discord.utils.get(guild.channels, name=channel_name)
                 
@@ -141,8 +149,12 @@ async def upload(bot, interaction , button):
                         await chh.send("Image Uploaded")
 
 
-                    await asyncio.sleep(30)
+                    if os.path.isfile(os.path.join(folder_name, image)):
+                        print("yesssss")
+
+                    await asyncio.sleep(20)
                     await channel_created.delete()
+                    
 
                 
         else:
