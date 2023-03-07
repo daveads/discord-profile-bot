@@ -3,7 +3,7 @@ import discord
 from model import queries
 from core.config_parser import BotConfigs
 from core import embed
-
+import os
 
 from discord.ui import Button, View
 
@@ -124,18 +124,34 @@ async def upload(bot, interaction , button):
 
                 
                 if (image1):
-                    await chh.send(image1)
-                    await asyncio.sleep(10)
+                    Ori_filename = image1.filename
+                    image = f"{user.id}{Ori_filename[-4:]}"
+                    folder_name = "UserImages"
+
+                    if not os.path.exists(folder_name):
+                        os.makedirs(folder_name)
+                        await image1.save(fp=f"{folder_name}/{image}")
+                    
+
+                    try:
+                        await user_embed.user_reply(user,"Image Uploaded")
+                        await chh.send("Image Upload Successful")
+                        
+                    except:
+                        await chh.send("Image Uploaded")
+
+
+                    await asyncio.sleep(30)
                     await channel_created.delete()
 
                 
         else:
 
             try:
-                await user_embed.user_reply(user,"SELFIE ROLE REQUIRED TO USE THIS")
+                await user_embed.user_reply(user,"YOU NEED TO BE SELFIE VERIFIED TO USE THE UPLOAD BUTTON")
                 await interaction.response.defer()
 
             except:
-                await interaction.response.send_message("SELFIE ROLE REQUIRED TO USE THIS", ephemeral=True)
+                await interaction.response.send_message("YOU NEED TO BE SELFIE VERIFIED TO USE THE UPLOAD BUTTON", ephemeral=True)
                 await asyncio.sleep(60)
                 await interaction.delete_original_response()
