@@ -4,6 +4,8 @@ from dotenv import load_dotenv
 from discord.ext import commands
 import asyncio
 from model import profile
+from model import user_images
+
 from view.profile_btn import Profile
 
 
@@ -13,6 +15,7 @@ from discord.ext.commands import Greedy, Context
 
 # intializing database
 profile.main()
+user_images.main()
 
 load_dotenv()
 token = os.getenv('TOKEN')
