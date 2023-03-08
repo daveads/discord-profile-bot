@@ -10,12 +10,12 @@ from view.btns_callback.funcs import (
     height,
     get_element,
 )
-
+from model import user_image_query
 
 # Class initialized
 user_in_db = queries.PROFILEque()
 bot_configs = BotConfigs()
-
+image_query = user_image_query.Imageque()
 
 async def profile_embed(user, interaction):
 
@@ -31,6 +31,7 @@ async def profile_embed(user, interaction):
         user_data[dic_key[i]] = user_d[i]
 
 
+    print("images bla bla bla ",image_query.get_user_images(user.id))
 
     # idk
     userG = await interaction.guild.fetch_member(interaction.user.id)
