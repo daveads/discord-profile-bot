@@ -25,6 +25,7 @@ def main():
             premium_exp_date VARCHAR(10),
             profile_date VARCHAR(12)
             )''')
+            
       #print("Table created")
 
   except sqlite3.Error as error:
