@@ -80,8 +80,8 @@ async def bump(bot, cooldown, interaction , button):
                 if male in interaction.user.roles:
                     await channel_male.send(f"{user.mention}")
 
-                    from model import user_image_query
-                    image_query = user_image_query.Imageque()
+                    from model import user_profile_image_query
+                    image_query = user_profile_image_query.Imageque()
 
                     #user images 
                     images_data = image_query.get_user_images(user.id)

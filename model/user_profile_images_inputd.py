@@ -13,7 +13,7 @@ class image_data():
     self.uploaded_at = datetime.utcnow().strftime("%d-%m-%Y")
 
     try: 
-      cur.execute("INSERT INTO user_images VALUES (NULL, ?, ?, ?)", (
+      cur.execute("INSERT INTO user_profile_images VALUES (NULL, ?, ?, ?)", (
       self.user_id,
       self.image_name,
       self.uploaded_at

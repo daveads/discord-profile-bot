@@ -40,8 +40,8 @@ async def upload(bot, interaction , button):
         
         # normal users 
         if(image_count == 1): # if image == 1:
-            await interaction.response.send_message("Image Limit exceeded for normal user")
-            
+            await interaction.followup.send("Image Limit exceeded for normal user")
+            #interaction.followup.send
         elif (image_count == 0 ):
             await handle_upload_data(user, interaction, bot)
             #upload....
