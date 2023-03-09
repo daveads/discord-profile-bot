@@ -9,6 +9,7 @@
 
 # profile images
 /delete_all_profile_images
+/see_users_profile_pictures {randomize with the diff profile pics}
 
 # use the bot to push pictures to channel...
 
