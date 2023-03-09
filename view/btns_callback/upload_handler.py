@@ -7,10 +7,10 @@ from discord.ui import Button, View
 from core import embed
 
 # DB
-from model import user_images_inputd
+from model import user_profile_images_inputd
 
 # Class initialized
-upload_db = user_images_inputd
+upload_db = user_profile_images_inputd
 bot_configs = BotConfigs()
 user_embed = embed.Embed()
 

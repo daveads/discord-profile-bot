@@ -1,5 +1,4 @@
 import asyncio
-from tabnanny import filename_only
 import discord
 
 from discord.ext import commands

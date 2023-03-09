@@ -10,12 +10,12 @@ from view.btns_callback.funcs import (
     height,
     get_element,
 )
-from model import user_image_query
+from model import user_profile_image_query
 
 # Class initialized
 user_in_db = queries.PROFILEque()
 bot_configs = BotConfigs()
-image_query = user_image_query.Imageque()
+image_query = user_profile_image_query.Imageque()
 
 async def profile_embed(user, interaction):
 

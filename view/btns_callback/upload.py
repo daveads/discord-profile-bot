@@ -3,8 +3,8 @@ import discord
 
 # DB
 from model import queries
-from model import user_images_inputd
-from model import user_image_query
+from model import user_profile_images_inputd
+from model import user_profile_image_query
 
 
 from core.config_parser import BotConfigs
@@ -12,8 +12,8 @@ from core import embed
 
 # Class initialized
 user_in_db = queries.PROFILEque()
-upload_db = user_images_inputd
-image_query = user_image_query.Imageque()
+upload_db = user_profile_images_inputd
+image_query = user_profile_image_query.Imageque()
 
 bot_configs = BotConfigs()
 user_embed = embed.Embed()
