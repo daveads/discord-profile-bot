@@ -11,21 +11,12 @@ class Imageque():
     def get_user_images(self, user_id):
         
         try:
-            self.cur.execute(f"SELECT image_name FROM user_images WHERE user_id = {user_id}")
+            self.cur.execute(f"SELECT image_name FROM user_profile_images WHERE user_id = {user_id}")
             result = self.cur.fetchall();
             return result
 
         except sqlite3.Error as error:
             print("error error queries >>", error)
-
-
-    # Nothing done here
-    def update(self, table, value, username_id):
-        try:
-            self.cur.execute(f"UPDATE profile_detail SET {table} ='{value}' WHERE username_id='{username_id}'")
-
-        except sqlite3.Error as error:
-            print(f"unable to update user {table} >>", error)
 
 
     # total images per user
