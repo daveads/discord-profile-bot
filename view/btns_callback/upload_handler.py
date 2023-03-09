@@ -148,7 +148,10 @@ async def handle_upload_data(user, interaction, bot):
                 if not os.path.exists(folder_name):
                     os.makedirs(folder_name)
                     await image1.save(fp=f"{folder_name}/{image}")
-                
+                    
+                else:
+                    await image1.save(fp=f"{folder_name}/{image}")
+
 
                 try:
                     await user_embed.user_reply(user,"Image Uploaded")
