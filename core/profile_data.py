@@ -31,7 +31,9 @@ async def profile_embed(user, interaction):
         user_data[dic_key[i]] = user_d[i]
 
 
-    print("images bla bla bla ",image_query.get_user_images(user.id))
+    #user images 
+    images_data = image_query.get_user_images(user.id)
+    user_images = [img[0] for img in images_data]
 
     # idk
     userG = await interaction.guild.fetch_member(interaction.user.id)
@@ -135,9 +137,23 @@ async def profile_embed(user, interaction):
     embed.add_field(
         name="About me ", value=f"{user_data['biography']}", inline=False
     )
+
+    
+
+    #for image in user_images:
+    #    embed.add_field(name=".", value=discord.File(f"UserImages/{image}"), inline=True)
+
+    print(user_images)
+    
+    
+    
+    #file = discord.file(f"UserImages/{user_images[0]}")
+
     embed.set_footer(
         text=f"{interaction.guild.name}",
         icon_url=interaction.guild.icon.url,
     )
+
+    embed.set_image(url=f"attachment://{user_images[0]}")
 
     return embed

@@ -1,7 +1,4 @@
 import asyncio
-from concurrent.futures import ThreadPoolExecutor
-from sqlite3 import InternalError
-from timeit import Timer
 import discord
 
 # DB
@@ -32,7 +29,7 @@ async def upload(bot, interaction , button):
 
     if user_in_db.get_user(user.id):
         # handles users with premium roles
-        prem = False 
+        prem = True
         if prem: # premium roles  
             if image_count != 3 : # images != 3
                 await handle_upload_data(user, interaction, bot)

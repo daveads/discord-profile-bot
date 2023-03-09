@@ -1,4 +1,5 @@
 import asyncio
+from tabnanny import filename_only
 import discord
 
 from discord.ext import commands
@@ -79,7 +80,17 @@ async def bump(bot, cooldown, interaction , button):
 
                 if male in interaction.user.roles:
                     await channel_male.send(f"{user.mention}")
-                    await channel_male.send(embed=profile_embed_data)
+
+                    from model import user_image_query
+                    image_query = user_image_query.Imageque()
+
+                    #user images 
+                    images_data = image_query.get_user_images(user.id)
+                    user_images = [img[0] for img in images_data]
+                    
+                    file = discord.File(f"UserImages/{user_images[0]}")
+
+                    await channel_male.send(file=file, embed=profile_embed_data)
 
                 elif female in interaction.user.roles:
                     await channel_female.send(f"{user.mention}")
