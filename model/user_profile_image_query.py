@@ -22,8 +22,8 @@ class Imageque():
     # total images per user
     def total_user_images(self, user_id):
         try:
-            count = self.cur.execute(f"SELECT COUNT(*) FROM user_images WHERE user_id = {user_id};")
-            
+            count = self.cur.execute(f"SELECT COUNT(*) FROM user_profile_images WHERE user_id = {user_id};")
+
             return count.fetchone()[0]
 
         except sqlite3.Error as error:
