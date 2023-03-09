@@ -16,3 +16,6 @@
 **anonmous or public**
 * selfies
 * outfits
+
+// i might like this...
+* follower and following feature
