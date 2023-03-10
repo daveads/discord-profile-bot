@@ -46,9 +46,6 @@ async def upload(bot, interaction , button):
             await handle_upload_data(user, interaction, bot)
             #upload....
 
-        else:
-            await interaction.response.send_message("something went wrong")
-
 
     else:
 

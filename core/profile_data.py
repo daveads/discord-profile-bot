@@ -128,8 +128,6 @@ async def profile_embed(user, interaction):
     else:
         embed.add_field( name="Verification level", value=f"Not verified", inline=True,)
 
-    ############
-
 
     embed.add_field(
         name="Hobbies ", value=f"{user_data['hobbies']}", inline=False
@@ -138,22 +136,23 @@ async def profile_embed(user, interaction):
         name="About me ", value=f"{user_data['biography']}", inline=False
     )
 
-    
-
-    #for image in user_images:
-    #    embed.add_field(name=".", value=discord.File(f"UserImages/{image}"), inline=True)
-
     print(user_images)
-    
-    
-    
-    #file = discord.file(f"UserImages/{user_images[0]}")
 
     embed.set_footer(
         text=f"{interaction.guild.name}",
         icon_url=interaction.guild.icon.url,
     )
 
-    embed.set_image(url=f"attachment://{user_images[0]}")
 
-    return embed
+    import random
+    def randomise_image(user_images):
+        pic = random.choice(user_images)
+        return pic
+
+
+    user_pic = randomise_image(user_images)
+
+    file = discord.File(f"UserImages/{user_pic}")
+    embed.set_image(url=f"attachment://{user_pic}")
+
+    return embed, file
