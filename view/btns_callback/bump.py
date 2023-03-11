@@ -77,27 +77,29 @@ async def bump(bot, cooldown, interaction , button):
 
                 profile_embed_data = await profile_embed(user, interaction)
 
-                if male in interaction.user.roles:
-                    await channel_male.send(f"{user.mention}")
+                async def chn_send(channel):
 
                     embed, file = profile_embed_data
-
+                    
                     if file:
-
-                        await channel_male.send(file=file, embed=embed)
+                        await channel.send(file=file, embed=embed)
                     
                     else:
-                        await channel_male.send(embed=embed)
+                        await channel.send(emebed=embed)
 
+
+                if male in interaction.user.roles:
+                    await channel_male.send(f"{user.mention}")
+                    await chn_send(channel_male)
 
                 elif female in interaction.user.roles:
                     await channel_female.send(f"{user.mention}")
-                    await channel_female.send(embed=profile_embed_data)
+                    await chn_send(channel_female)
 
                 else:
                     await channel_other.send(f"{user.mention}")
-                    await channel_other.send(embed=profile_embed_data)
-
+                    await chn_send(channel_other)
+                    
         else:
             try:
                 await user_embed.user_reply(
