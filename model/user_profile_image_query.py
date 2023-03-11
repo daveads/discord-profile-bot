@@ -19,6 +19,16 @@ class Imageque():
             print("error error queries >>", error)
 
 
+    def delete_all_images(self, user_id):
+        
+        try:
+            self.cur.execute(f"DELETE FROM user_profile_images WHERE user_id = {user_id}")
+            self.con.commit()
+            
+        except sqlite3.Error as error:
+            print("error delete_all_images()", error)     
+
+
     # total images per user
     def total_user_images(self, user_id):
         try:

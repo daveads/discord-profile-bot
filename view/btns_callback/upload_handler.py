@@ -139,18 +139,26 @@ async def handle_upload_data(user, interaction, bot):
                 image = f"{user.name}-{Ori_filename[:img_length]}{Ori_filename[-4:]}"
                 folder_name = "UserImages"
 
-                #database
-                upload_db.image_data(
-                    str(user.id),
-                    image,
-                )
+                
 
                 if not os.path.exists(folder_name):
                     os.makedirs(folder_name)
                     await image1.save(fp=f"{folder_name}/{image}")
+
+                    #database
+                    upload_db.image_data(
+                        str(user.id),
+                        image,
+                    )
                     
                 else:
                     await image1.save(fp=f"{folder_name}/{image}")
+
+                    #database
+                    upload_db.image_data(
+                        str(user.id),
+                        image,
+                    )
 
 
                 try:
