@@ -44,9 +44,11 @@ class Delete_pics(commands.Cog):
                 await interaction.response.send_message("Pictures Deleted", ephemeral=True)
 
 
+
             else:
                 await interaction.response.send_message("YOU HAVE NO IMAGES TO DELETE", ephemeral=True)
         
+
         else:
             await interaction.response.send_message("YOU DONT HAVE A PROFILE YET", ephemeral=True)
             await asyncio.sleep(60)

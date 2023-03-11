@@ -143,16 +143,15 @@ async def profile_embed(user, interaction):
         icon_url=interaction.guild.icon.url,
     )
 
+    from core.random_image import randomise_image
 
-    import random
-    def randomise_image(user_images):
-        pic = random.choice(user_images)
-        return pic
+    if user_images:
+        user_pic = randomise_image(user_images)
 
+        file = discord.File(f"UserImages/{user_pic}")
+        embed.set_image(url=f"attachment://{user_pic}")
 
-    user_pic = randomise_image(user_images)
+        return embed, file
 
-    file = discord.File(f"UserImages/{user_pic}")
-    embed.set_image(url=f"attachment://{user_pic}")
-
+    file = None
     return embed, file
