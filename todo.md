@@ -9,7 +9,8 @@
 
 # profile images
 /delete_all_profile_images
-/see_users_profile_pictures {randomize with the diff profile pics}
+/see_users_profile_pictures {randomize with the diff profile pics} #done 
+/display user profile picture 
 
 # use the bot to push pictures to channel...
 
@@ -17,5 +18,5 @@
 * selfies
 * outfits
 
-// i might like this...
+// i might like this...****
 * follower and following feature
