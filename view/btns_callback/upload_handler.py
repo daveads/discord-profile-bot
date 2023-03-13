@@ -172,5 +172,5 @@ async def handle_upload_data(user, interaction, bot):
                 if os.path.isfile(os.path.join(folder_name, image)):
                     print("yesssss")
 
-                await asyncio.sleep(20)
+                await asyncio.sleep(10)
                 await channel_created.delete()
