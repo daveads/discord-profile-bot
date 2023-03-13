@@ -2,15 +2,15 @@
 
 **// Todo
 
-* Total number created profile
-* /post picture to a channel
+* Total number created profile {only_me}
+* /post picture to a channel 
 * profile creation logs
 
 
 # profile images
-/delete_all_profile_images
+/delete_all_profile_images **
 /see_users_profile_pictures {randomize with the diff profile pics} #done 
-/display user profile picture 
+/display user profile picture **
 
 # use the bot to push pictures to channel...
 
