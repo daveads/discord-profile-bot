@@ -65,3 +65,8 @@ class BotConfigs:
     def height(self, heig):
         if heig in self.data['height']:
             return self.data['height'][heig]
+
+
+    def premium(self, level):
+        if level in self.data['premiumRoles']:
+            return self.data['premiumRoles'][level]
