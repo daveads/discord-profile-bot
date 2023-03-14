@@ -20,3 +20,7 @@
 
 // i might like this...****
 * follower and following feature
+
+
+/meet {This create a private channel for the two users with a timeout of 3mins 5 for charm}
+
