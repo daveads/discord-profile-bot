@@ -11,7 +11,7 @@ def main():
         ''' 
         CREATE TABLE IF NOT EXISTS user_profile_images (
         id INTEGER PRIMARY KEY,
-        user_id INT NOT NULL,
+        user_id VARCHAR(25) NOT NULL,
         image_name VARCHAR(255) NOT NULL,
         uploaded_at VARCHAR(20),
         FOREIGN KEY (user_id) REFERENCES profile_detail(username_id))
