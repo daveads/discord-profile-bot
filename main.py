@@ -7,8 +7,7 @@ import asyncio
 #DB
 from model import profile
 from model import user_profile_images
-from model import follower
-from model import following
+from model import follower_following
 
 from view.profile_btn import Profile
 
@@ -20,8 +19,7 @@ from discord.ext.commands import Greedy, Context
 # intializing database
 profile.main()
 user_profile_images.main()
-following.main()
-follower.main()
+follower_following.main()
 
 load_dotenv()
 token = os.getenv('TOKEN')
