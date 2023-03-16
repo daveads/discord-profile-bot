@@ -20,16 +20,23 @@ class Unfollow(commands.Cog):
         try:
         
             if user_in_db.get_user(interaction.user.id):
-              
-                user_check = ffq.user_ff_bool(user.id, interaction.user.id)
                 
-                if user_check:
-                    ffq.unfollower_user(user.id, interaction.user.id)
-                     
-                    await interaction.response.send_message("User unfollowed")
+                if interaction.user.id == 840152379122384896:
 
-                else: 
-                    await interaction.response.send_message("You aren't following this user")
+                    await interaction.response.send_message("Once You Follow the Creator you are not allowed to Unfollow Him, You are bound forever")
+
+
+                else:
+
+                    user_check = ffq.user_ff_bool(user.id, interaction.user.id)
+                    
+                    if user_check:
+                        ffq.unfollower_user(user.id, interaction.user.id)
+                        
+                        await interaction.response.send_message("User unfollowed")
+
+                    else: 
+                        await interaction.response.send_message("You aren't following this user")
 
 
             else: 
