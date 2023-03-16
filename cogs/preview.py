@@ -32,9 +32,18 @@ class Preview(commands.Cog):
         
             profile_embed_data = await profile_embed(user, interaction)
 
-            await interaction.response.send_message(embed=profile_embed_data, ephemeral=True)
-            await asyncio.sleep(60)
-            await interaction.delete_original_response()
+            embed, file = profile_embed_data
+
+
+            if file:
+                await interaction.response.send_message(file=file, embed=embed, ephemeral=True)
+                await asyncio.sleep(60)
+                await interaction.delete_original_response()
+
+            else:
+                await interaction.response.send_message(embed=embed, ephemeral=True)
+                await asyncio.sleep(60)
+                await interaction.delete_original_response()
 
 
         else:
