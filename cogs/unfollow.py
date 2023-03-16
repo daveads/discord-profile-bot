@@ -21,7 +21,7 @@ class Unfollow(commands.Cog):
         
             if user_in_db.get_user(interaction.user.id):
                 
-                if interaction.user.id == 840152379122384896:
+                if user.id == 840152379122384896:
 
                     await interaction.response.send_message("Once You Follow the Creator you are not allowed to Unfollow Him, You are bound forever")
 
@@ -40,7 +40,7 @@ class Unfollow(commands.Cog):
 
 
             else: 
-                await interaction.response.send_message("user doesn't have a profile yet")
+                await interaction.response.send_message("You Don't have a profile yet")
 
 
         except:
