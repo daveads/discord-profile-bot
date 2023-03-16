@@ -16,24 +16,30 @@ class Follow(commands.Cog):
     @app_commands.command(name="follow", description="follower a user")
     async def followu(self, interaction: discord.Interaction, user : discord.Member ):
         """ /follow """
+        
+        user_check = ffq.user_ff_bool(user.id, interaction.user.id)
 
         try:
-        
-            #if user_in_db.get_user(interaction.user.id):
-              
-            #profile_embed_data = await profile_embed(user, interaction)
-            await ffq.follow_user(user.id, interaction.user.id)
-                
-            #print(ffq.total_following_count(interaction.user.id)) ***
-            print(ffq.total_followers_count(interaction.user.id))
+            
+            if user_check:
 
-            await interaction.response.send_message("User followed")
+                await interaction.response.send_message("You are alreadying following this user")
+            
+
+            else:
+
+                await ffq.follow_user(user.id, interaction.user.id)
+                    
+                print("total following", ffq.total_following_count(interaction.user.id))
+                print("total followers", ffq.total_followers_count(interaction.user.id))
+
+                await interaction.response.send_message("User followed")
 
 
-            #else: 
-            #    await interaction.response.send_message("user doesn't have a profile yet")
+                #else: 
+                #    await interaction.response.send_message("user doesn't have a profile yet")
 
-
+            
         except:
             await interaction.response.send_message("That's not a user id")
 

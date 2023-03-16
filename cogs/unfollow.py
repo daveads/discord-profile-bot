@@ -21,10 +21,15 @@ class Unfollow(commands.Cog):
         
             if user_in_db.get_user(interaction.user.id):
               
-                #profile_embed_data = await profile_embed(user, interaction)
-                ffq.unfollower_user(user.id, interaction.user.id)
+                user_check = ffq.user_ff_bool(user.id, interaction.user.id)
+                
+                if user_check:
+                    ffq.unfollower_user(user.id, interaction.user.id)
                      
-                await interaction.response.send_message("User unfollowed")
+                    await interaction.response.send_message("User unfollowed")
+
+                else: 
+                    await interaction.response.send_message("You aren't following this user")
 
 
             else: 
