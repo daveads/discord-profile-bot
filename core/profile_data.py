@@ -136,8 +136,6 @@ async def profile_embed(user, interaction):
         name="About me ", value=f"{user_data['biography']}", inline=False
     )
 
-    print(user_images)
-
     embed.set_footer(
         text=f"{interaction.guild.name}",
         icon_url=interaction.guild.icon.url,

@@ -17,16 +17,25 @@ async def preview(bot, interaction, button):
 
         profile_embed_data = await profile_embed(user, interaction)
 
+        embed, file = profile_embed_data
 
         try:
-            await user.send(embed=profile_embed_data)
-            await interaction.response.defer()
+
+            if file:
+                await user.send(file=file, embed=embed)
+                await interaction.response.defer()
+
+            else:
+                await user.send(embed=embed)
+                await interaction.response.defer()
             
         except:
-            await interaction.response.send_message(embed=profile_embed_data, ephemeral=True)
-            await asyncio.sleep(60)
-            await interaction.delete_original_response()
 
+            if file:
+                await interaction.response.send_message(file=file, embed=embed, ephemeral=True)
+            
+            else:
+                await interaction.response.send_message(embed=embed, ephemeral=True)
 
 
     else:

@@ -85,7 +85,7 @@ async def bump(bot, cooldown, interaction , button):
                         await channel.send(file=file, embed=embed)
                     
                     else:
-                        await channel.send(emebed=embed)
+                        await channel.send(embed=embed)
 
 
                 if male in interaction.user.roles:
