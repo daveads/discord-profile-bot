@@ -1,3 +1,4 @@
+import asyncio
 import discord
 from model import queries
 from core import embed
@@ -12,6 +13,8 @@ user_embed = embed.Embed()
 from core.config_parser import BotConfigs
 bot_configs = BotConfigs()
 
+from model import user_profile_image_query
+image_query = user_profile_image_query.Imageque()
 
 #button callbacks
 from view.btns_callback.create import create
@@ -20,6 +23,7 @@ from view.btns_callback.preview import preview
 from view.btns_callback.bump import bump
 from view.btns_callback.upload import upload
 
+from view.btns_callback.dm_upload_handler import dm_upload_data
 
 class Profile(discord.ui.View):
     
@@ -58,11 +62,65 @@ class Profile(discord.ui.View):
 
 
     # UPLOAD BUTTON 
-    @discord.ui.button(label='Upload', style=discord.ButtonStyle.blurple, emoji='📁', disabled=False, custom_id='upload', row=1)
+    @discord.ui.button(label='Upload', style=discord.ButtonStyle.blurple, emoji='📁', custom_id='upload', row=1)
     async def upload(self, interaction: discord.Interaction, button: discord.ui.Button):
-        await upload(self.bot, interaction, button)
         
+        try:
+            
+            await upload(self.bot, interaction, button)
+        
+        except:
 
+            user = await self.bot.fetch_user(interaction.user.id)
+            
+            image_count = image_query.total_user_images(user.id)
+
+            from core import premium_roles
+
+            roles = await premium_roles.premiumR(interaction)
+            prem = any(R in interaction.user.roles for R in roles)
+
+            if user_in_db.get_user(interaction.user.id): 
+
+                if prem:  # premium roles
+                    if image_count != 3:  # images != 3
+                        
+                        await interaction.response.defer()
+                        await dm_upload_data(user, self.bot)
+                        
+
+                    else:
+                        await interaction.response.send_message("Image Limit exceeded")
+                        await asyncio.sleep(5)
+                        await interaction.delete_original_response()
+
+                # normal users
+                elif prem == False:
+                    if image_count != 0:
+                        await interaction.response.send_message(
+                            "Image Limit exceeded for normal user"
+                        )
+                        await asyncio.sleep(5)
+                        await interaction.delete_original_response()
+
+                    else:
+                        await dm_upload_data(user, self.bot)
+                        await interaction.response.defer()
+
+            else:
+                try:
+                    await user_embed.user_reply(
+                        user, "YOU NEED TO BE SELFIE VERIFIED TO USE THE UPLOAD BUTTON"
+                    )
+                    await interaction.response.defer()
+
+                except:
+                    await interaction.response.send_message(
+                        "YOU NEED TO BE SELFIE VERIFIED TO USE THE UPLOAD BUTTON",
+                        ephemeral=True,
+                    )
+                    await asyncio.sleep(30)
+                    await interaction.delete_original_response()
 
 
 # Gender,  age  __
