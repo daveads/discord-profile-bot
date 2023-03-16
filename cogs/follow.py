@@ -19,30 +19,35 @@ class Follow(commands.Cog):
         
         user_check = ffq.user_ff_bool(user.id, interaction.user.id)
 
-        try:
-            
-            if user_check:
+        
+        m_user = user_in_db.get_user(interaction.user.id)
+        user_id = user_in_db.get_user(user.id)
+        
+        if m_user:
 
-                await interaction.response.send_message("You are alreadying following this user")
-            
+            if user_id:
+
+                try:
+                    if user_check:
+                        await interaction.response.send_message("You already follow this user")
+                    
+
+                    else:
+                        await ffq.follow_user(user.id, interaction.user.id)
+                        await interaction.response.send_message("User followed")
+
+                    
+                except:
+                    await interaction.response.send_message("That's not a user id")
 
             else:
-
-                await ffq.follow_user(user.id, interaction.user.id)
-                    
-                print("total following", ffq.total_following_count(interaction.user.id))
-                print("total followers", ffq.total_followers_count(interaction.user.id))
-
-                await interaction.response.send_message("User followed")
+                await interaction.response.send_message(f"`{user.display_name.capitalize()}` doesn't have a profile \nYou Can only Follow a User who has a Profile")
+                
+        else:
+            await interaction.response.send_message("You don't have a profile yet")
 
 
-                #else: 
-                #    await interaction.response.send_message("user doesn't have a profile yet")
-
-            
-        except:
-            await interaction.response.send_message("That's not a user id")
-
+        
 
     @followu.error
     async def on_test_error(self, interaction: discord.Interaction, error: app_commands.AppCommandError):
