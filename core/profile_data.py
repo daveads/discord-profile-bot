@@ -111,6 +111,12 @@ async def profile_embed(user, interaction):
         inline=True,
     )
 
+    following = ffq.total_following_count(interaction.user.id)
+    followers = ffq.total_followers_count(interaction.user.id)
+ 
+    embed.add_field( name="Following", value=f"{following}", inline=True)
+    embed.add_field( name="Followers", value=f"{followers}", inline=True)
+
 
     # verification level
     if age_verf in interaction.user.roles and selfie_verf in interaction.user.roles:
@@ -118,24 +124,17 @@ async def profile_embed(user, interaction):
         embed.add_field(
         name="Verification level",
         value=f"Selfie & Age verified",
-        inline=True,
+        inline=False,
     )
 
     elif age_verf in interaction.user.roles:
-        embed.add_field( name="Verification level", value=f"Age verified", inline=True,)
+        embed.add_field( name="Verification level", value=f"Age verified", inline=False,)
 
     elif selfie_verf in interaction.user.roles:
-        embed.add_field( name="Verification level", value=f"Selfie verified", inline=True,)
+        embed.add_field( name="Verification level", value=f"Selfie verified", inline=False,)
 
     else:
-        embed.add_field( name="Verification level", value=f"Not verified", inline=True,)
-
-
-    following = ffq.total_following_count(interaction.user.id)
-    followers = ffq.total_followers_count(interaction.user.id)
- 
-    embed.add_field( name="Following", value=f"{following}", inline=True)
-    embed.add_field( name="Followers", value=f"{followers}", inline=True)
+        embed.add_field( name="Verification level", value=f"Not verified", inline=False,)
 
     embed.add_field(
         name="Hobbies ", value=f"{user_data['hobbies']}", inline=False
