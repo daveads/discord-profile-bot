@@ -23,28 +23,35 @@ class Follow(commands.Cog):
         m_user = user_in_db.get_user(interaction.user.id)
         user_id = user_in_db.get_user(user.id)
         
-        if m_user:
 
-            if user_id:
+        if interaction.user.id == user.id :
+            
+            await interaction.response.send_message("You are Not allowed to Follow Yourself dummy")
 
-                try:
-                    if user_check:
-                        await interaction.response.send_message("You already follow this user")
-                    
-
-                    else:
-                        await ffq.follow_user(user.id, interaction.user.id)
-                        await interaction.response.send_message("User followed")
-
-                    
-                except:
-                    await interaction.response.send_message("That's not a user id")
-
-            else:
-                await interaction.response.send_message(f"`{user.display_name.capitalize()}` doesn't have a profile \nYou Can only Follow a User who has a Profile")
-                
         else:
-            await interaction.response.send_message("You don't have a profile yet")
+
+            if m_user:
+
+                if user_id:
+
+                    try:
+                        if user_check:
+                            await interaction.response.send_message("You already follow this user")
+                        
+
+                        else:
+                            await ffq.follow_user(user.id, interaction.user.id)
+                            await interaction.response.send_message("User followed")
+
+                        
+                    except:
+                        await interaction.response.send_message("That's not a user id")
+
+                else:
+                    await interaction.response.send_message(f"`{user.display_name.capitalize()}` doesn't have a profile \nYou Can only Follow a User who has a Profile")
+                    
+            else:
+                await interaction.response.send_message("You don't have a profile yet")
 
 
         
