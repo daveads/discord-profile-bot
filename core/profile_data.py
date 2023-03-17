@@ -11,11 +11,13 @@ from view.btns_callback.funcs import (
     get_element,
 )
 from model import user_profile_image_query
+from model import follower_following_query
 
 # Class initialized
 user_in_db = queries.PROFILEque()
 bot_configs = BotConfigs()
 image_query = user_profile_image_query.Imageque()
+ffq = follower_following_query.Following_follower()
 
 async def profile_embed(user, interaction):
 
@@ -128,6 +130,12 @@ async def profile_embed(user, interaction):
     else:
         embed.add_field( name="Verification level", value=f"Not verified", inline=True,)
 
+
+    following = ffq.total_following_count(interaction.user.id)
+    followers = ffq.total_followers_count(interaction.user.id)
+ 
+    embed.add_field( name="Following", value=f"{following}", inline=True)
+    embed.add_field( name="Followers", value=f"{followers}", inline=True)
 
     embed.add_field(
         name="Hobbies ", value=f"{user_data['hobbies']}", inline=False
