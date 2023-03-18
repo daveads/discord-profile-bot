@@ -36,8 +36,11 @@ bot = ProfileBot()
 async def load():
     for f in os.listdir("./cogs"):
         if f.endswith(".py"):
-            await bot.load_extension(f'cogs.{f[:-3]}')
+            try:
+                await bot.load_extension(f'cogs.{f[:-3]}')
 
+            except:
+                print(f"There is a problem with {f[:-3]} @cogs folder")
 
 @bot.command()
 @commands.is_owner()
