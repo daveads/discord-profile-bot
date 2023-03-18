@@ -50,7 +50,7 @@ class Display(commands.Cog):
                     await interaction.response.send_message("YOU HAVE NO Profile IMAGE", ephemeral=True)
         
             else:
-                await interaction.response.send_message(f"{user_p.name} Doesn't Have a profile")
+                await interaction.response.send_message(f"{user_p.name} Doesn't Have a profile", ephemeral=True)
 
         else:
             await interaction.response.send_message("YOU Need To Have a Profile to be able to Use this", ephemeral=True)

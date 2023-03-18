@@ -38,7 +38,7 @@ class joined(commands.Cog):
         """Says when a member joined."""
         member = member or interaction.user
 
-        await interaction.response.send_message(f'`{member}` joined **{interaction.guild.name.upper()}** On {discord.utils.format_dt(member.joined_at)}')
+        await interaction.response.send_message(f'`{member}` joined **{interaction.guild.name.upper()}** On {discord.utils.format_dt(member.joined_at)}', ephemeral=True)
 
 
 

@@ -27,14 +27,14 @@ class ffCount(commands.Cog):
                 embed.add_field(name="Followers", value=str(followers), inline=True)
                 embed.add_field(name="Following", value=str(followings), inline=True)
 
-                await interaction.response.send_message(embed=embed)
+                await interaction.response.send_message(embed=embed, ephemeral=True)
 
             else: 
-                await interaction.response.send_message("user doesn't have a profile yet")
+                await interaction.response.send_message("user doesn't have a profile yet", ephemeral=True)
 
 
         except:
-            await interaction.response.send_message("That's not a user id")
+            await interaction.response.send_message("That's not a user id", ephemeral=True)
 
 
     @follower_following_count.error

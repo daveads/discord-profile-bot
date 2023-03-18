@@ -35,13 +35,13 @@ class Command_debug_test(commands.Cog):
                 print("following", following)
 
 
-                await interaction.response.send_message(f"Test***")
+                await interaction.response.send_message(f"Test***", ephemeral=True)
 
             except:
-                await interaction.response.send_message("unknown error db or logic related")
+                await interaction.response.send_message("unknown error db or logic related" , ephemeral=True)
 
         else:
-            await interaction.response.send_message("This is meant for the Creator only")
+            await interaction.response.send_message("This is meant for the Creator only" , ephemeral=True)
 
     @command_test.error
     async def on_test_error(self, interaction: discord.Interaction, error: app_commands.AppCommandError):

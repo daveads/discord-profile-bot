@@ -40,7 +40,7 @@ class search(commands.Cog):
 
 
         except:
-            await interaction.response.send_message("That's not a user id")
+            await interaction.response.send_message("That's not a user id", ephemeral=True)
 
 
     @find.error

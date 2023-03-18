@@ -26,7 +26,7 @@ class Follow(commands.Cog):
 
         if interaction.user.id == user.id :
             
-            await interaction.response.send_message("You are Not allowed to Follow Yourself dummy")
+            await interaction.response.send_message("You are Not allowed to Follow Yourself dummy", ephemeral=True)
 
         else:
 
@@ -36,22 +36,22 @@ class Follow(commands.Cog):
 
                     try:
                         if user_check:
-                            await interaction.response.send_message("You already follow this user")
+                            await interaction.response.send_message("You already follow this user", ephemeral=True)
                         
 
                         else:
                             await ffq.follow_user(user.id, interaction.user.id)
-                            await interaction.response.send_message("User followed")
+                            await interaction.response.send_message("User followed", ephemeral=True)
 
                         
                     except:
-                        await interaction.response.send_message("That's not a user id")
+                        await interaction.response.send_message("That's not a user id", ephemeral=True)
 
                 else:
-                    await interaction.response.send_message(f"`{user.display_name.capitalize()}` doesn't have a profile \nYou Can only Follow a User who has a Profile")
+                    await interaction.response.send_message(f"`{user.display_name.capitalize()}` doesn't have a profile \nYou Can only Follow a User who has a Profile", ephemeral=True)
                     
             else:
-                await interaction.response.send_message("You don't have a profile yet")
+                await interaction.response.send_message("You don't have a profile yet", ephemeral=True)
 
 
         

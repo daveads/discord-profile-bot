@@ -24,18 +24,18 @@ class FollowCheck(commands.Cog):
                 following_check = ffq.user_ff_bool(interaction.user.id, user.id)
                 
                 if following_check:
-                    await interaction.response.send_message(f"{user.name} is following you")
+                    await interaction.response.send_message(f"{user.name} is following you", ephemeral=True)
 
                 else: 
-                    await interaction.response.send_message(f"{user.name} isn't following you")
+                    await interaction.response.send_message(f"{user.name} isn't following you", ephemeral=True)
 
 
             else: 
-                await interaction.response.send_message("user doesn't have a profile yet")
+                await interaction.response.send_message("user doesn't have a profile yet", ephemeral=True)
 
 
         except:
-            await interaction.response.send_message("That's not a user id")
+            await interaction.response.send_message("That's not a user id", ephemeral=True)
 
 
     @checkFollower.error
