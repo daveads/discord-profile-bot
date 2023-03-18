@@ -1,4 +1,4 @@
 import logging
 
-logger = logging.getLogger('Tests')
-logger.warning('files >>')
+logger = logging.getLogger("Tests")
+logger.warning("files >>")
