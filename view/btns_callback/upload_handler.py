@@ -32,10 +32,15 @@ async def user_reply(user, bot, chh, channel_created):
             return None
 
     except asyncio.TimeoutError:
-        await chh.send(f"Time out {user.mention}")
-        await asyncio.sleep(20)
-        await channel_created.delete()
 
+        try:
+            await chh.send(f"Time out {user.mention}")
+            await asyncio.sleep(20)
+            await channel_created.delete()
+
+        except:
+            print("Channel already deleted")
+            
     return False
 
 
