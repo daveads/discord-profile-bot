@@ -4,6 +4,9 @@ from dotenv import load_dotenv
 from discord.ext import commands
 import asyncio
 
+import logging
+
+
 #DB
 from model import profile
 from model import user_profile_images
@@ -40,7 +43,8 @@ async def load():
                 await bot.load_extension(f'cogs.{f[:-3]}')
 
             except:
-                print(f"There is a problem with {f[:-3]} @cogs folder")
+                logging.warning(f"PROBLEM WITH A COG FILE <<<{f[:-3]}>>>")
+                
 
 @bot.command()
 @commands.is_owner()

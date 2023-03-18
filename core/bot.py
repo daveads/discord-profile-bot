@@ -4,6 +4,13 @@ from view.profile_btn import Profile
 
 #bot_configs = BotConfigs()
 
+import logging
+from rich.logging import RichHandler
+
+logging.basicConfig(format='::: %(message)s', handlers=[RichHandler()])
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+
 
 class ProfileBot(commands.Bot):
     def __init__(self):
@@ -17,8 +24,10 @@ class ProfileBot(commands.Bot):
         self.add_view(Profile(self))
 
     async def on_ready(self):
-        print(f'Logged in as {self.user} (ID: {self.user.id})')
-        print('------')
+        #print()
+        logger.info(f'Logged in as {self.user}')
+
+        logger.info('------')
         #c = self.get_guild(bot_configs.guild_id())
         #print("guild**********", c)
-        print('------')
+        logger.info('------')

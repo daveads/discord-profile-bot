@@ -2,6 +2,10 @@ import sqlite3
 from datetime import datetime
 from os.path import exists
 
+import logging
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+
 con = sqlite3.connect("profile.db")
 cur = con.cursor()
 
@@ -64,7 +68,7 @@ def main():
             print("unable to input default data >> ", error)
 
     else:
-        print("default data already exist")
+        logger.info(f'Default data already exist')
 
 
 if __name__ == "__main__":
