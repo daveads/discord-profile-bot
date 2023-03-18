@@ -77,7 +77,9 @@ class Following_follower:
 
             result = self.cur.fetchall()
 
-            return result
+            re = [i[1] for i in result]
+            
+            return re
 
         except sqlite3.Error as error:
             print("error error queries >>", error)
@@ -97,7 +99,9 @@ class Following_follower:
 
             result = self.cur.fetchall()
 
-            return result
+            re = [i[1] for i in result]
+
+            return re
 
         except sqlite3.Error as error:
             print("error error queries >>", error)
