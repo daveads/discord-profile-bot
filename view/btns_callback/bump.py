@@ -29,7 +29,7 @@ async def bump(bot, cooldown, interaction , button):
     )
 
     if role in interaction.user.roles:
-        await user.send("premium user should use the !bumpp commands")
+        await user.send("premium user should use the /bump commands")
         bucket.reset()
 
     else:

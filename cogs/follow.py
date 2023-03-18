@@ -43,6 +43,11 @@ class Follow(commands.Cog):
                             await ffq.follow_user(user.id, interaction.user.id)
                             await interaction.response.send_message("User followed", ephemeral=True)
 
+                            embed = discord.Embed(title="Profile Notification", description=f"<@{interaction.user.id}> followed you", color=0x808080)
+                            
+                            user_o = await self.bot.fetch_user(user.id)
+
+                            await user_o.send(embed=embed)
                         
                     except:
                         await interaction.response.send_message("That's not a user id", ephemeral=True)

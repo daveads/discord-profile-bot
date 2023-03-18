@@ -33,10 +33,10 @@ class Unfollow(commands.Cog):
                     if user_check:
                         ffq.unfollower_user(user.id, interaction.user.id)
                         
-                        await interaction.response.send_message("User unfollowed")
+                        await interaction.response.send_message("User unfollowed", ephemeral=True)
 
                     else: 
-                        await interaction.response.send_message("You aren't following this user")
+                        await interaction.response.send_message("You aren't following this user", ephemeral=True)
 
 
             else: 
