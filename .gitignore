@@ -3,3 +3,5 @@ env
 *profile.db
 *.pyc
 bot_config.toml
+check/
+UserImages/
