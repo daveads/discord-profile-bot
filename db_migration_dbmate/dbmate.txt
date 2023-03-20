@@ -1,0 +1,11 @@
+# readme
+
+add this in .env DATABASE_URL="sqlite:profile.db"
+
+dbmate new table_reorder
+
+dbmate status
+
+edit the db/migration/{.sql}file
+
+dbmate migrate
