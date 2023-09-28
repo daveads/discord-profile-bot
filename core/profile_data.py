@@ -21,7 +21,7 @@ ffq = follower_following_query.Following_follower()
 
 async def profile_embed(user, interaction):
 
-    dic_key = ['id','username','username_id','name','location','looking_for','hobbies','biography','premium_day','profile_date']
+    dic_key = ['id','username','username_id','name','location','looking_for','hobbies','biography','age','profile_date']
 
     # verification tag
     age_verf = discord.utils.get(interaction.guild.roles, id=bot_configs.age("age_verf"))
@@ -42,7 +42,6 @@ async def profile_embed(user, interaction):
 
     # Needed roles
     gender_roles = await gender(interaction)
-    age_roles = await age(interaction)
     orientation_roles = await orientation(interaction)
     datingstatus_roles = await datingstatus(interaction)
     dmstatus_roles = await dmstatus(interaction)
@@ -52,14 +51,12 @@ async def profile_embed(user, interaction):
 
     # CHECKS IF ROLE is in User object
     gender_check = np.isin(gender_roles, userG.roles)
-    age_check = np.isin(age_roles, userG.roles)
     orientation_check = np.isin(orientation_roles, userG.roles)
     datingstatus_check = np.isin(datingstatus_roles, userG.roles)
     dmstatus_check = np.isin(dmstatus_roles, userG.roles)
     height_check = np.isin(height_roles, userG.roles)
 
     # array index
-    age_get = await get_element(age_check)
     gender_get = await get_element(gender_check)
     orientation_get = await get_element(orientation_check)
     datingstatus_get = await get_element(datingstatus_check)
@@ -82,7 +79,7 @@ async def profile_embed(user, interaction):
     embed.add_field(
         name="Gender", value=f"{gender_roles[gender_get]}", inline=True
     )
-    embed.add_field(name="Age", value=f"{age_roles[age_get]}", inline=True)
+    embed.add_field(name="Age", value=f"{user_data['age']}", inline=True)
     embed.add_field(
         name="Orientation",
         value=f"{orientation_roles[orientation_get]}",

@@ -80,7 +80,7 @@ async def sync(
 
         await ctx.send(
             f"Synced {len(synced)} commands {'globally' if spec is None else 'to the current guild.'}"
-        )
+        , ephemeral=True)
         return
 
     ret = 0
@@ -94,7 +94,7 @@ async def sync(
         else:
             ret += 1
 
-    await ctx.send(f"Synced the tree to {ret}/{len(guilds)}.")
+    await ctx.send(f"Synced the tree to {ret}/{len(guilds)}.", ephemeral=True)
 
 
 bot.remove_command('help')  

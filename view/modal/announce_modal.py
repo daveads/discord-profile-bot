@@ -26,8 +26,7 @@ class Announce(discord.ui.Modal, title="Profile Bot"):
         )
 
         embed = discord.Embed(
-            title="Profile bot feature annoucement",
-            description=f"Title : `{self.Title.value}` ",
+            title=f"{self.Title.value}",
             color=discord.Colour(0x2F3136),
         )
 

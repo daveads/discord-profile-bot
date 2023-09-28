@@ -11,17 +11,15 @@ user_embed = embed.Embed()
 
 
 async def create(bot, interaction, button):
-    # gender, age, orientation, datingstatus, dmstatus, height
+    # gender, orientation, datingstatus, dmstatus, height
 
     # missing some needed objests from the libary 
     user = await bot.fetch_user(interaction.user.id)
-
     userG = await interaction.guild.fetch_member(interaction.user.id)
 
 
     #Needed roles
     gender_roles = await gender(interaction)
-    age_roles = await age(interaction)
     orientation_roles = await orientation(interaction)
     datingstatus_roles = await datingstatus(interaction)
     dmstatus_roles = await dmstatus(interaction)
@@ -31,13 +29,12 @@ async def create(bot, interaction, button):
 
     # CHECKS IF ROLE is in User object
     gender_check = np.isin(gender_roles, userG.roles) 
-    age_check = np.isin(age_roles, userG.roles)
     orientation_check = np.isin(orientation_roles, userG.roles)
     datingstatus_check = np.isin(datingstatus_roles, userG.roles)
     dmstatus_check = np.isin(dmstatus_roles, userG.roles)
     height_check = np.isin(height_roles, userG.roles)
 
-    needrole = [age_check, dmstatus_check, gender_check, height_check, orientation_check, datingstatus_check]
+    needrole = [dmstatus_check, gender_check, height_check, orientation_check, datingstatus_check]
         
     def check_roles(array):
         dm = []
@@ -63,7 +60,7 @@ async def create(bot, interaction, button):
                          
     else:
         
-        if len(check_roles(needrole)) == 6:
+        if len(check_roles(needrole)) == 5:
             
             await interaction.response.send_modal(Creatprofile())
 

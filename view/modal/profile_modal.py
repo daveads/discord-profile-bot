@@ -27,6 +27,13 @@ class Creatprofile(discord.ui.Modal, title="profile"):
         placeholder="What are your hobbies?",
     )
 
+    
+    age = discord.ui.TextInput(
+        label="Age",
+        placeholder="Input your age (number only)",
+    )
+    
+
     biography = discord.ui.TextInput(
         label="biography",
         placeholder="Please write a biography, under 200 characters!",
@@ -40,6 +47,7 @@ class Creatprofile(discord.ui.Modal, title="profile"):
             self.location.value,
             self.looking_for.value,
             self.hobbies.value,
+            self.age.value,
             self.biography.value,
         )
 

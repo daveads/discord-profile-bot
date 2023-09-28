@@ -19,7 +19,7 @@ async def edit(bot, cooldown, interaction, button):
     bucket = cooldown.get_bucket(interaction.message)
     retry = bucket.update_rate_limit()
 
-    dic_key = ['id','username','username_id','name','location','looking_for','hobbies','biography','premium_day','profile_date']
+    dic_key = ['id','username','username_id','name','location','looking_for','hobbies','biography','age','profile_date']
         
     user = await bot.fetch_user(interaction.user.id)  
         
@@ -54,7 +54,8 @@ async def edit(bot, cooldown, interaction, button):
             embed.add_field(name="(2) LOCATION", value=f"{user_data['location']}", inline=True)
             embed.add_field(name="(3) LOOKING FOR", value=f"{user_data['looking_for']}", inline=True)
             embed.add_field(name="(4) HOBBIES", value=f"{user_data['hobbies']}",inline=True)
-            embed.add_field(name="(5) BIOGRAPHY", value=f"{user_data['biography']}", inline=True)
+            embed.add_field(name="(5) AGE", value=f"{user_data['age']}", inline=True)
+            embed.add_field(name="(6) BIOGRAPHY", value=f"{user_data['biography']}", inline=True)
             embed.set_footer(text="profile can only be edited once a week",icon_url=interaction.user.avatar)
                 
             try:
@@ -133,8 +134,23 @@ async def edit(bot, cooldown, interaction, button):
                         else:
                             await user_embed.user_reply(user,"field can not be empty")
 
-                    #biography
+
+                    #age
                     elif msg.content ==  '5':
+                        await user.send("What's your age ?")
+                        await asyncio.sleep(2)
+                        msg5 = await bot.wait_for("message", check=check, timeout=msg_timer)
+                            
+                        if msg5.content:
+                            await user_embed.user_reply(user,"Age field updated")
+                            user_in_db.update('age', msg5.content, user.id)
+                            user_in_db.con.commit()
+                            
+                        else:
+                            await user_embed.user_reply(user,"field can not be empty")
+
+                    #biography
+                    elif msg.content ==  '6':
                         await user.send("Please write a biography, under 200 characters!")
                         await asyncio.sleep(2)
                         msg5 = await bot.wait_for("message", check=check, timeout=msg_timer)

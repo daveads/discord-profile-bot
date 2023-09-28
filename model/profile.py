@@ -24,10 +24,8 @@ def main():
             location VARCHAR(15),
             looking_for VARCHAR(30),
             hobbies VARCHAR(100),
+            age INTEGER(10),
             biography VARCHAR(150),
-            
-            premium_days int,
-            premium_exp_date VARCHAR(10),
             profile_date VARCHAR(12)
             )"""
         )
@@ -47,7 +45,7 @@ def main():
     if len(test0) == 0:
         try:
             cur.execute(
-                "INSERT INTO profile_detail VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);",
+                "INSERT INTO profile_detail VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?);",
                 (
                     "creator0000",
                     "00000000022331",
@@ -55,9 +53,8 @@ def main():
                     "internet",
                     "a nice lady",
                     "love tinkering and playing with computers",
+                    "500",
                     "nothing much yet",
-                    0,
-                    "2024-12-12",
                     "2022-10-03",
                 ),
             )
@@ -77,7 +74,7 @@ if __name__ == "__main__":
 
 class profile_data:
     def __init__(
-        self, username, username_id, name, location, looking_for, hobbies, biography
+        self, username, username_id, name, location, looking_for, hobbies, age, biography
     ):
         self.username = username
         self.username_id = username_id
@@ -86,19 +83,18 @@ class profile_data:
         # self.gender = gender #check
         self.looking_for = looking_for
         self.hobbies = hobbies
+        self.age = age
         self.biography = biography
+    
         # self.sexuality = Sexuality
         # height
         # relationship status
 
-        # Defaults
-        self.premium_days = 0
-        self.premium_exp_date = "0"
         self.profile_date = datetime.utcnow().strftime("%d-%m-%Y")
 
         try:
             cur.execute(
-                "INSERT INTO profile_detail VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                "INSERT INTO profile_detail VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                 (
                     self.username,
                     self.username_id,
@@ -106,9 +102,8 @@ class profile_data:
                     self.location,
                     self.looking_for,
                     self.hobbies,
+                    self.age,
                     self.biography,
-                    self.premium_days,
-                    self.premium_exp_date,
                     self.profile_date,
                 ),
             )
